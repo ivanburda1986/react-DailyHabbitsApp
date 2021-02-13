@@ -1,12 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import {Switch, Route} from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      
-    </div>
-  );
+import Layout from './hoc/Layout/Layout';
+
+
+
+class App extends Component() {
+  render(){
+    return (
+      <div className="App">
+        <Layout>
+          <Switch>
+
+          </Switch>
+        </Layout>
+      </div>
+    );
+  }
 }
 
 export default App;
