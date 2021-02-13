@@ -1,0 +1,42 @@
+
+SCREEN: Today habbits
+A list of predefined daily habits 
+A habit has: 
+Display: Title, description, indication that it has been completed
+Actions: An option to mark it as complete/incomplete
+----------------------------------------------
+SCREEN: Daily Habbits Setup
+Add a new habbit
+-Icon
+-name
+-description
+-confirm/cancel
+
+Individual habbits
+-delete
+-edit
+
+When a new day starts, an instance of the current state of the predefined list is created for the day
+--------------------------------------------------
+
+::::components::::
+Horizontal navigation
+Overlay menu 
+
+Today page
+TodayHabit
+
+
+Daily habit setup page 
+Add a new habbit trigger 
+Add a new habbit form
+SetupHabit 
+
+
+
+
+
+---------------------------------------------------
+Sources:
+Icons: https://www.flaticon.com/packs/origami-16?k=1613171611684
+Design idea: https://dribbble.com/shots/2452209-Entertainment-App
