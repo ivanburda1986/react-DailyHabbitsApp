@@ -1,8 +1,0 @@
-.Order{
-  display: flex;
-  flex-direction: row;
-  color: rgba(255,255,255, 0.8);
-  border-radius: 10;
-  width: 90%;
-  height: 100px;
-}

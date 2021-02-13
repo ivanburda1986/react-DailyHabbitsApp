@@ -4,10 +4,11 @@ import React, {Component} from 'react';
 class Layout extends Component {
 
   render(){
-    <React.Fragment>
-
-
-    </React.Fragment>
+    return(
+      <main>
+        {this.props.children}
+      </main>
+    );
   }
 }
 

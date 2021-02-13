@@ -1,19 +1,19 @@
 import React from 'react';
 
-import classes from './TodayHabit.css';
+import classes from './TodayHabit.module.css';
 
 const todayHabit = () =>{
-
+console.log(classes.Habbit);
 return(
-<div className={classes.Order}>
-  <div className={classes.todayHabitLeft}>
+<div className={classes.Habbit}>
+  <div className={classes.TodayHabitLeft}>
     <p>img</p>
   </div>
-  <div className={classes.todayHabitCenter}>
-    <p>Walk 5 kilometers</p>
-    <p>Ideally at a fast pace outdoors</p>
+  <div className={classes.TodayHabitCenter}>
+    <p className={classes.Title}>Walk 5 kilometers</p>
+    <p className={classes.Subtitle}>Ideally at a fast pace outdoors</p>
   </div>
-  <div className={classes.todayHabitRight}>
+  <div className={classes.TodayHabitRight}>
     <p>312</p>
     <p>DONE</p>
   </div>
