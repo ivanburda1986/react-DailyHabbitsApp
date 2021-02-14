@@ -2,20 +2,33 @@ import React from 'react';
 
 import classes from './TodayHabit.module.css';
 
-const todayHabit = () =>{
+const todayHabit = (props) =>{
 console.log(classes.Habbit);
+
+
+//Evaluates the completion state and returns what to show to the user
+const completionEvaluation = ()=>{
+  if(props.completed === true){
+    return 'DONE';
+  }
+  else{
+    return 'TICK';
+  }
+}
+
+
 return(
 <div className={classes.Habbit}>
   <div className={classes.TodayHabitLeft}>
     <p>img</p>
   </div>
   <div className={classes.TodayHabitCenter}>
-    <p className={classes.Title}>Walk 5 kilometers</p>
-    <p className={classes.Subtitle}>Ideally at a fast pace outdoors</p>
+    <p className={classes.Title}>{props.title}</p>
+    <p className={classes.Subtitle}>{props.subtitle}</p>
   </div>
   <div className={classes.TodayHabitRight}>
-    <p>312</p>
-    <p>DONE</p>
+    <p>{props.streak}</p>
+    <p>{completionEvaluation()}</p>
   </div>
 </div>
 );
