@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 
 import TodayHabit from '../../components/TodayHabit/TodayHabit';
 
+import sportIcon from '../../media/icons/sport.png';
+
 import classes from './TodayHabits.module.css';
 
 
@@ -10,7 +12,7 @@ class TodayHabits extends Component{
     todatHabits: [
       {
         id: 1,
-        icon: null,
+        icon: sportIcon,
         title: 'Walk 5 kilometers',
         subtitle: 'Ideally at a fast pace outdoors',
         streak: 15,
@@ -18,7 +20,7 @@ class TodayHabits extends Component{
       },
       {
         id: 2,
-        icon: null,
+        icon: sportIcon,
         title: 'Do 50 push ups',
         subtitle: 'The first serious to the exhaustion',
         streak: 4,
@@ -26,10 +28,18 @@ class TodayHabits extends Component{
       },
       {
         id: 3,
-        icon: null,
+        icon: sportIcon,
         title: 'Do 100 squats',
         subtitle: 'At least 20 single-legged',
         streak: 16,
+        completed: true
+      },
+      {
+        id: 4,
+        icon: sportIcon,
+        title: 'Programming for 90 minutes',
+        subtitle: 'Of really focused time',
+        streak: 352,
         completed: true
       }
     ]

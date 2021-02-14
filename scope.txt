@@ -39,4 +39,5 @@ SetupHabit
 ---------------------------------------------------
 Sources:
 Icons: https://www.flaticon.com/packs/origami-16?k=1613171611684
+Freeicons: https://freeicons.io/filter/popular/all/guitar
 Design idea: https://dribbble.com/shots/2452209-Entertainment-App

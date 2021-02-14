@@ -20,7 +20,7 @@ const completionEvaluation = ()=>{
 return(
 <div className={classes.Habbit}>
   <div className={classes.TodayHabitLeft}>
-    <p>img</p>
+    <img src={props.icon}/>
   </div>
   <div className={classes.TodayHabitCenter}>
     <p className={classes.Title}>{props.title}</p>
