@@ -1,17 +1,26 @@
 import React, {Component} from 'react';
 
+//Own components
 import TodayHabit from '../../components/TodayHabit/TodayHabit';
 
+//Icons
 import sportIcon from '../../media/icons/sport.png';
+import sleepIcon from '../../media/icons/sleep.png';
+import readingIcon from '../../media/icons/reading.png';
+import programmingIcon from '../../media/icons/programming.png';
+import guitarIcon from '../../media/icons/guitar.png';
+import alarmclockIcon from '../../media/icons/alarmclock.png'
 
+
+//Classes
 import classes from './TodayHabits.module.css';
 
 
 class TodayHabits extends Component{
   state = {
-    todatHabits: [
+    todayHabits: [
       {
-        id: 1,
+        id: 0,
         icon: sportIcon,
         title: 'Walk 5 kilometers',
         subtitle: 'Ideally at a fast pace outdoors',
@@ -19,39 +28,58 @@ class TodayHabits extends Component{
         completed: false
       },
       {
-        id: 2,
-        icon: sportIcon,
-        title: 'Do 50 push ups',
-        subtitle: 'The first serious to the exhaustion',
+        id: 1,
+        icon: guitarIcon,
+        title: 'Play the guitar for 60 minutes',
+        subtitle: 'At least 30 on training difficult stuff',
         streak: 4,
         completed: true
       },
       {
-        id: 3,
-        icon: sportIcon,
-        title: 'Do 100 squats',
-        subtitle: 'At least 20 single-legged',
+        id: 2,
+        icon: readingIcon,
+        title: 'Read for 30 minutes',
+        subtitle: 'Novels or educational books',
         streak: 16,
         completed: true
       },
       {
-        id: 4,
-        icon: sportIcon,
+        id: 3,
+        icon: programmingIcon,
         title: 'Programming for 90 minutes',
         subtitle: 'Of really focused time',
         streak: 352,
-        completed: true
+        completed: false
+      },
+      {
+        id: 4,
+        icon: alarmclockIcon,
+        title: 'Sleep for 7 hours at least',
+        subtitle: 'Get some good sleep',
+        streak: 3,
+        completed: false
       }
-    ]
+    ],
+    checker: true
   }
+
+  completionClickHandler = (todayHabitId) =>{
+    const todayHabits = [...this.state.todayHabits];
+    const myHabit = {...todayHabits[todayHabitId]};
+    myHabit.completed = !myHabit.completed;
+    todayHabits[todayHabitId] = myHabit;
+    this.setState({todayHabits:todayHabits});
+  }
+
+
 
 
   render(){
 
     return(
       <div className={classes.TodayHabits}>
-        {this.state.todatHabits.map(habit=>(
-          <TodayHabit key={habit.id} icon={habit.icon} title={habit.title} subtitle={habit.subtitle} streak={habit.streak} completed={habit.completed}/>
+        {this.state.todayHabits.map(habit=>(
+          <TodayHabit key={habit.id} icon={habit.icon} title={habit.title} subtitle={habit.subtitle} streak={habit.streak} completed={habit.completed} clicked={()=>this.completionClickHandler(habit.id)}/>
         ))}
       </div>
     );

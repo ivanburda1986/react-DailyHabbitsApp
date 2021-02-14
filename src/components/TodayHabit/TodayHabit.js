@@ -2,23 +2,24 @@ import React from 'react';
 
 import classes from './TodayHabit.module.css';
 
+//Icons
+import checkmark from '../../media/icons/checkmark.png';
+import checkmarkCompleted from '../../media/icons/checkmarkCompleted.png';
+import streakflame from '../../media/icons/streakflame.svg';
+
+
+
 const todayHabit = (props) =>{
-console.log(classes.Habbit);
 
-
-//Evaluates the completion state and returns what to show to the user
-const completionEvaluation = ()=>{
-  if(props.completed === true){
-    return 'DONE';
-  }
-  else{
-    return 'TICK';
-  }
-}
+//Evaluation component classes  
+const habitClasses = [classes.Habbit];
+if(props.completed){
+  habitClasses.push(classes.Completed);
+};
 
 
 return(
-<div className={classes.Habbit}>
+<div className={habitClasses.join(' ')}>
   <div className={classes.TodayHabitLeft}>
     <img src={props.icon}/>
   </div>
@@ -27,8 +28,15 @@ return(
     <p className={classes.Subtitle}>{props.subtitle}</p>
   </div>
   <div className={classes.TodayHabitRight}>
-    <p>{props.streak}</p>
-    <p>{completionEvaluation()}</p>
+    <div className={classes.Streak}>
+    {props.streak}
+    </div>
+    <button 
+      className={classes.HabitCompletionBtn}
+      onClick={props.clicked}
+      >
+        <img src={(props.completed ? checkmarkCompleted : checkmark )} className={(props.completed ? classes.CheckmarkCompleted : null )}/>
+      </button>
   </div>
 </div>
 );
