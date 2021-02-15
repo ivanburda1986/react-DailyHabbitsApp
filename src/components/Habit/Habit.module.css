@@ -1,0 +1,102 @@
+.Habit{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  justify-content: space-between;
+  background-color: rgba(173, 169, 169, 0.7);
+  color: #fff;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 450px;
+  height: 100px;
+  margin: 5px;
+}
+
+.HabitLeft{
+display: flex;
+align-items: center;
+justify-content: center;
+box-sizing: border-box;
+height: 80%;
+width: 80px;
+border-radius: 10px;
+margin-left: 10px;
+background-color: rgba(255,255,255,0.8);
+}
+
+.HabitLeft img{
+  width: 70%;
+  height: auto;
+  filter: invert(50%);
+
+}
+
+.HabitCenter{
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: left;
+  text-align: left;
+  width: calc(100% - 120px);
+
+  box-sizing: border-box;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 0 10px;
+}
+
+.Title{
+  margin: 0;
+  margin-top: 5px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  font-weight: 600;
+  width: 100%;
+  vertical-align: bottom;
+}
+
+.Subtitle{
+  margin-top: 0;
+  margin-top: 5px;
+  font-size: 0.8rem;
+  box-sizing: border-box;
+}
+
+.HabitRight{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  box-sizing: border-box;
+  height: 80%;
+  width: 40px;
+  margin-right: 15px;
+
+}
+
+.HabitDeletionBtn{
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+
+.HabitDeletionBtn img{
+  width: 100%;
+  height: auto;
+  filter: invert(20%) opacity(70%);
+}
+
+.HabitDeletionBtn img:hover{
+  filter:  opacity(90%);
+}
+
+
+.HabitDeletionBtn .CheckmarkCompleted{
+  filter: invert(0%);
+}
+
+.HabitDeletionBtn .CheckmarkCompleted:hover{
+  filter: brightness(125%);
+}
