@@ -109,7 +109,10 @@
 
 
 .HabitTemplateBottomRight{
-
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  box-sizing: border-box;
   height: 100%;
   width: 35%;
 }

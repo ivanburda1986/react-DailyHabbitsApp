@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 //Component
 import HabitIconSelection from '../UI/HabitIconSelection/HabitIconSelection';
+import Button from '../UI/Button/Button';
 
 //Style
 import classes from './HabitTemplate.module.css';
@@ -37,9 +38,9 @@ class HabitTemplate extends Component {
           <div className={classes.HabitTemplateTopRight}>
             <form>
               <label htmlFor="HabitTemplateTitle"></label>
-              <input type="text" className={classes.HabitTemplateTitle} name="HabitTemplateTitle" placeholder="Habit name"></input>
+              <input type="text" className={classes.HabitTemplateTitle} name="HabitTemplateTitle" placeholder="New habit name"></input>
               <label htmlFor="HabitTemplateDescription"></label>
-              <input type="text" className={classes.HabitTemplateDescription} name="HabitTemplateDescription" placeholder="Description"></input>
+              <input type="text" className={classes.HabitTemplateDescription} name="HabitTemplateDescription" placeholder="Habit details"></input>
             </form>
           </div>
         </div>
@@ -56,7 +57,7 @@ class HabitTemplate extends Component {
           </div>
   
           <div className={classes.HabitTemplateBottomRight}>
-  
+           <Button buttonTitle={"Create"}/>
           </div>
         </div>
       </div>
