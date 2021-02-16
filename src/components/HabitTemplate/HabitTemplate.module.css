@@ -49,17 +49,32 @@
 .HabitTemplateTopRight{
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: center;
   box-sizing: border-box;
   height: 80%;
   width: calc(100% - 80px);
-  margin-left: 10px;
+  margin-left: 5px;
 }
 
 .HabitTemplateTopRight input{
   border-radius: 5px;
   line-height: 1.2rem;
+  font-size: 1.1rem;
   padding: 0.2em;
+  width: 100%;
+  margin-bottom: 0.3em;
+  border: none;
+  background: rgba(255,255,255,0.2);
+  font-weight: 600;
+  color: #fff;
+}
+
+.HabitTemplateTopRight .HabitTemplateDescription{
+  line-height: 0.9rem;
+  font-size: 0.9rem;
+  color: #fff;
+  font-weight: 400;
 }
 
 
@@ -89,28 +104,12 @@
   z-index: -1;
 }
 
-.HabitIconSelection img{
-  box-sizing: border-box;
-  height: 1.5rem;
-  width: 1.5rem;
-  border-radius: 3px;
-  padding: 0.2em;
-  background-color: rgba(255,255,255,0.8);
-  margin: 0.2em;
-}
 
-.HabitIconSelection img:hover{
-  background-color: tomato;
-}
-
-.HabitIconSelection img.selectedIcon{
-  background-color: green;
-}
 
 
 
 .HabitTemplateBottomRight{
-  background: red;
+
   height: 100%;
   width: 35%;
 }

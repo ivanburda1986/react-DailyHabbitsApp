@@ -1,0 +1,19 @@
+
+.HabitIconSelection img{
+  box-sizing: border-box;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 3px;
+  padding: 0.2em;
+  background-color: rgba(255,255,255,0.8);
+  margin: 0.2em;
+  cursor: pointer;
+}
+
+.HabitIconSelection img:hover{
+  background-color: rgb(255, 255, 255);
+}
+
+.HabitIconSelection img.selectedIcon{
+  background-color: rgba(168, 230, 86, 0.8);
+}
