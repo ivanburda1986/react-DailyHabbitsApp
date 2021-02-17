@@ -31,11 +31,17 @@ class SetupHabits extends Component {
     ]
   }
 
+  addHabitHandler = (newHabit) => {
+    let updatedHabits = [...this.state.habits];
+    updatedHabits.push(newHabit);
+    this.setState({habits: updatedHabits});
+  }
+
   render() {
     return (
       <div className={classes.SetupHabits}>
         {/* Habits creation template */}
-        <HabitTemplate/>
+        <HabitTemplate addHabit={this.addHabitHandler}/>
 
         {/* Individual habits */}
         {this.state.habits.map(habit=>(

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {v4 as uuidv4} from 'uuid';
 
 //Component
 import HabitIconSelection from '../UI/HabitIconSelection/HabitIconSelection';
@@ -18,14 +19,40 @@ import questionmark from '../../media/icons/questionmark.svg';
 
 
 class HabitTemplate extends Component {
+
   state={
-    selectedIcon: null,
-    selectedIconImage: questionmark,
+    selectedIcon: "sportIcon",
+    selectedIconImage: sportIcon,
   }
 
   handleIconSelection = (clickedIcon)=>{
     this.setState({selectedIcon: clickedIcon.target.value, selectedIconImage:clickedIcon.target.nextSibling.children[0].src});
   };
+
+  createNewHabit =()=>{
+    let newHabitTitleInput = document.getElementById("newHabitTitleInput");
+    let newHabitDescriptionInput = document.getElementById("newHabitDescriptionInput");
+
+    const newHabit = {
+      id : uuidv4(),
+      icon : this.state.selectedIconImage,
+      title : newHabitTitleInput.value,
+      subtitle : newHabitDescriptionInput.value,
+      streak : 0,
+      lastStreakUpdateTime : new Date(),
+    }
+    console.log(newHabitTitleInput.value);
+    console.log(newHabitDescriptionInput.value);
+    this.props.addHabit(newHabit);
+    this.clearUI();
+  }
+
+  clearUI =()=>{
+    document.getElementById("newHabitTitleInput").value = "";
+    document.getElementById("newHabitDescriptionInput").value = "";
+    this.setState({selectedIcon: 'sportIcon', selectedIconImage: sportIcon});
+  }
+
 
   render(){
     return(
@@ -38,9 +65,9 @@ class HabitTemplate extends Component {
           <div className={classes.HabitTemplateTopRight}>
             <form>
               <label htmlFor="HabitTemplateTitle"></label>
-              <input type="text" className={classes.HabitTemplateTitle} name="HabitTemplateTitle" placeholder="New habit name"></input>
+              <input type="text" id="newHabitTitleInput" className={classes.HabitTemplateTitle} name="HabitTemplateTitle" placeholder="New habit name"></input>
               <label htmlFor="HabitTemplateDescription"></label>
-              <input type="text" className={classes.HabitTemplateDescription} name="HabitTemplateDescription" placeholder="Habit details"></input>
+              <input type="text" id="newHabitDescriptionInput" className={classes.HabitTemplateDescription} name="HabitTemplateDescription" placeholder="Habit details"></input>
             </form>
           </div>
         </div>
@@ -57,7 +84,7 @@ class HabitTemplate extends Component {
           </div>
   
           <div className={classes.HabitTemplateBottomRight}>
-           <Button buttonTitle={"Create"}/>
+           <Button buttonTitle={"Create"} clicked={this.createNewHabit}/>
           </div>
         </div>
       </div>
