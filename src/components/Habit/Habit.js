@@ -17,7 +17,7 @@ const habit = (props) =>{
   
   
   return(
-  <div className={habitClasses.join(' ')}>
+  <div className={habitClasses.join(' ')} data-id={props.habitId}>
     <div className={classes.HabitLeft}>
       <img src={props.icon}/>
     </div>

@@ -41,8 +41,6 @@ class HabitTemplate extends Component {
       streak : 0,
       lastStreakUpdateTime : new Date(),
     }
-    console.log(newHabitTitleInput.value);
-    console.log(newHabitDescriptionInput.value);
     this.props.addHabit(newHabit);
     this.clearUI();
   }
