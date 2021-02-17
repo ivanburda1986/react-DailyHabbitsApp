@@ -14,6 +14,7 @@ import alarmclockIcon from '../../media/icons/alarmclock.png'
 
 //Classes
 import classes from './TodayHabits.module.css';
+import habitIconSelection from '../../components/UI/HabitIconSelection/HabitIconSelection';
 
 
 class TodayHabits extends Component{
@@ -70,7 +71,15 @@ class TodayHabits extends Component{
     todayHabits[todayHabitId] = myHabit;
     this.setState({todayHabits:todayHabits});
   }
-
+  
+  streakHandler = () =>{
+    // call this function always on component load and always on component update (after completionClickHandler)
+    // habits for each check streak
+    // updated today: streak keep, completed true
+    // updated yesterday: streak keep, completed false
+    // updated before yesterday: streak reset, completed false
+    // send to server
+  }
 
 
 

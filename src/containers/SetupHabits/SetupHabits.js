@@ -32,16 +32,10 @@ class SetupHabits extends Component {
 
   deleteHabitHandler = (clickedHabit) => {
     let habitToDeleteId = clickedHabit.target.parentNode.parentNode.parentNode.getAttribute("data-id");
-    // let updatedHabits = [...this.state.habits];
-    // let index = updatedHabits.findIndex(habit=>habit.id === habitToDeleteId);
-
-    let filtered = this.state.habits.filter(element=>{
+    let updatedHabits = this.state.habits.filter(element=>{
       return element.id !== habitToDeleteId;
     })
-    
-    console.log(filtered);
-
-
+    this.setState({habits:updatedHabits});
   }
 
   render() {
