@@ -33,6 +33,11 @@ Add a new habbit form
 SetupHabit 
 
 
+Next steps: 
+update habits on the server upon any habit creation/deletion on the setup screen 
+get habits from the serer upon any loading of the today screen
+
+
 
 
 
