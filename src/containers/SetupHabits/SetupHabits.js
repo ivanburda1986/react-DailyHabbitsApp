@@ -35,7 +35,7 @@ class SetupHabits extends Component {
     // let updatedHabits = [...this.state.habits];
     // let index = updatedHabits.findIndex(habit=>habit.id === habitToDeleteId);
 
-    let filtered = this.state.habits.filter(function(element){
+    let filtered = this.state.habits.filter(element=>{
       return element.id !== habitToDeleteId;
     })
     
