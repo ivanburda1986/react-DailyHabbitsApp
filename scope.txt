@@ -1,41 +1,20 @@
+HABIT SETUP
+Creation/Deletion of a habit -> POST
 
-SCREEN: Today habbits
-A list of predefined daily habits 
-A habit has: 
-Display: Title, description, indication that it has been completed
-Actions: An option to mark it as complete/incomplete
-----------------------------------------------
-SCREEN: Daily Habbits Setup
-Add a new habbit
--Icon
--name
--description
--confirm/cancel
+TODAY 
+Upon entering the page always re-fetch habits from the server
+For each habit: check streak last update date vs today's date
+* TODAY - SLUD >= 1: show streak as 0
+* TODAY - SLUD < 1: show streak number from the server
 
-Individual habbits
--delete
--edit
+Tick UI state: SLUD === today -> ticked 
 
-When a new day starts, an instance of the current state of the predefined list is created for the day
---------------------------------------------------
-
-::::components::::
-Horizontal navigation
-Overlay menu 
-
-Today page
-TodayHabit
+Tick: POST streak++, SLUD = current timestamp + refetch 
+Untick: POST streak --, SLUD = previous SLUD + refetch 
 
 
-Daily habit setup page 
-Add a new habbit trigger 
-Add a new habbit form
-SetupHabit 
 
 
-Next steps: 
-update habits on the server upon any habit creation/deletion on the setup screen 
-get habits from the serer upon any loading of the today screen
 
 
 

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+//Axios
+import axios from '../../axios-habits';
+
 //Own components
 import Habit from '../../components/Habit/Habit';
 import HabitTemplate from '../../components/HabitTemplate/HabitTemplate';
@@ -28,6 +31,11 @@ class SetupHabits extends Component {
     let updatedHabits = [...this.state.habits];
     updatedHabits.push(newHabit);
     this.setState({habits: updatedHabits});
+
+    //Send the habit to the server
+    axios.post('/habits.json', newHabit)
+      .then(response=>console.log(response))
+      .catch(error=>console.log(error));
   }
 
   deleteHabitHandler = (clickedHabit) => {
