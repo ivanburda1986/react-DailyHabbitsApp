@@ -30,6 +30,11 @@ class SetupHabits extends Component {
     ]
   }
 
+  //Event handlers
+  componentDidMount(){
+  this.GEThabits();
+  }
+  
   //Interaction with the firebase database
   POSThabit= (newHabit)=> {
     firebase.database().ref('habits/' + newHabit.id).set({
@@ -55,7 +60,10 @@ class SetupHabits extends Component {
     const habits = firebase.database().ref('/habits');
     habits.on('value', (snapshot) =>{
       const data = snapshot.val();
-      return data;
+
+      if(data !== null){
+        this.setState({habits: Object.values(data)});
+      }
     })
   };
 
@@ -81,12 +89,13 @@ class SetupHabits extends Component {
     //this.DELETEhabit('f0aa283c-0da9-4b76-88d3-62b7be527f39');
   };
 
+
+
   //Handlers
   addHabitHandler = (newHabit) => {
     let updatedHabits = [...this.state.habits];
     updatedHabits.push(newHabit);
     this.setState({habits: updatedHabits});
-
     this.POSThabit(newHabit);
   }
 
@@ -96,6 +105,7 @@ class SetupHabits extends Component {
       return element.id !== habitToDeleteId;
     })
     this.setState({habits:updatedHabits});
+    this.DELETEhabit(habitToDeleteId);
   }
 
   render() {

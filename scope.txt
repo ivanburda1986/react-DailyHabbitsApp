@@ -23,6 +23,9 @@ https://firebase.google.com/docs/database/web/start
 https://firebase.google.com/docs/web/learn-more#ways-to-add-web-sdks
 https://firebase.google.com/docs/database/web/read-and-write
 
+UTC 
+https://stackoverflow.com/questions/4631928/convert-utc-epoch-to-local-date
+
 ---------------------------------------------------
 Sources:
 Icons: https://www.flaticon.com/packs/origami-16?k=1613171611684
