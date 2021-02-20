@@ -3,13 +3,17 @@ import React, {Component} from 'react';
 //Own components
 import TodayHabit from '../../components/TodayHabit/TodayHabit';
 
+//Firebase
+import firebase from "firebase";
+import database from '../../firebase';
+
 //Icons
-import sportIcon from '../../media/icons/sport.png';
-import sleepIcon from '../../media/icons/sleep.png';
-import readingIcon from '../../media/icons/reading.png';
-import programmingIcon from '../../media/icons/programming.png';
-import guitarIcon from '../../media/icons/guitar.png';
-import alarmclockIcon from '../../media/icons/alarmclock.png'
+// import sportIcon from '../../media/icons/sport.png';
+// import sleepIcon from '../../media/icons/sleep.png';
+// import readingIcon from '../../media/icons/reading.png';
+// import programmingIcon from '../../media/icons/programming.png';
+// import guitarIcon from '../../media/icons/guitar.png';
+// import alarmclockIcon from '../../media/icons/alarmclock.png'
 
 
 //Classes
@@ -20,56 +24,52 @@ import habitIconSelection from '../../components/UI/HabitIconSelection/HabitIcon
 class TodayHabits extends Component{
   state = {
     todayHabits: [
-      {
-        id: 0,
-        icon: sportIcon,
-        title: 'Walk 5 kilometers',
-        subtitle: 'Ideally at a fast pace outdoors',
-        streak: 15,
-        completed: false
-      },
-      {
-        id: 1,
-        icon: guitarIcon,
-        title: 'Play the guitar for 60 minutes',
-        subtitle: 'At least 30 on training difficult stuff',
-        streak: 4,
-        completed: true
-      },
-      {
-        id: 2,
-        icon: readingIcon,
-        title: 'Read for 30 minutes',
-        subtitle: 'Novels or educational books',
-        streak: 16,
-        completed: true
-      },
-      {
-        id: 3,
-        icon: programmingIcon,
-        title: 'Programming for 90 minutes',
-        subtitle: 'Of really focused time',
-        streak: 352,
-        completed: false
-      },
-      {
-        id: 4,
-        icon: alarmclockIcon,
-        title: 'Sleep for 7 hours at least',
-        subtitle: 'Get some good sleep',
-        streak: 3,
-        completed: false
-      }
-    ],
-    checker: true
+      
+    ]
   }
+
+  //Event handlers
+  componentDidMount(){
+    this.GEThabits();
+    }
+
+  
+  GEThabits = () => {
+    const habits = firebase.database().ref('/habits');
+    habits.on('value', (snapshot) =>{
+      const data = snapshot.val();
+
+      if(data !== null){
+        this.setState({todayHabits: Object.values(data)});
+      }
+    })
+  };
+
+  PUThabit = (functionArgs) => {
+    let objectToUpdate = {
+      [functionArgs.attribute]:functionArgs.newValue
+    }
+
+    return firebase.database().ref(`/habits/${functionArgs.id}`).update(objectToUpdate,
+      (error) => {
+        if (error){
+          console.log('Updating the habit on the server has failed');
+        } else{
+          console.log('The habit has been updated on the server successfully');
+        }
+      }
+    );
+  };
+
 
   completionClickHandler = (todayHabitId) =>{
     const todayHabits = [...this.state.todayHabits];
     const myHabit = {...todayHabits[todayHabitId]};
-    myHabit.completed = !myHabit.completed;
+    myHabit.lastStreakUpdateTime = Date.now();
     todayHabits[todayHabitId] = myHabit;
     this.setState({todayHabits:todayHabits});
+
+    this.PUThabit({attribute: 'lastStreakUpdateTime', newValue: Date.now(), id: todayHabitId});
   }
   
   streakHandler = () =>{

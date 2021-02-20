@@ -67,22 +67,7 @@ class SetupHabits extends Component {
     })
   };
 
-  PUThabit = (functionArgs) => {
-    let objectToUpdate = {
-      [functionArgs.attribute]:functionArgs.newValue
-    }
 
-    return firebase.database().ref(`/habits/${functionArgs.id}`).update(objectToUpdate,
-      (error) => {
-        if (error){
-          console.log('Updating the habit on the server has failed');
-        } else{
-          console.log('The habit has been updated on the server successfully');
-        }
-      }
-    );
-    // this.PUThabit({attribute: 'subtitle', newValue: 'Eat it alone', id: '567f6d1c-e5e8-4e80-914d-2f45c467e9a8'});
-  };
 
   DELETEhabit = (habitId) => {
     return firebase.database().ref(`/habits/${habitId}`).remove();
