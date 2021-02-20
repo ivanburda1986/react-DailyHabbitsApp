@@ -76,8 +76,9 @@ class SetupHabits extends Component {
     // this.PUThabit({attribute: 'subtitle', newValue: 'Eat it alone', id: '567f6d1c-e5e8-4e80-914d-2f45c467e9a8'});
   };
 
-  DELETEhabit = () => {
-
+  DELETEhabit = (habitId) => {
+    return firebase.database().ref(`/habits/${habitId}`).remove();
+    //this.DELETEhabit('f0aa283c-0da9-4b76-88d3-62b7be527f39');
   };
 
   //Handlers
