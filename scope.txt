@@ -18,14 +18,10 @@ Untick: POST streak --, SLUD = previous SLUD + refetch
 
 
 
-Firestore tutorials 
-https://www.youtube.com/playlist?list=PLl-K7zZEsYLluG5MCVEzXAQ7ACZBCuZgZ
-
-Firebase todo 
-https://dev.to/chensokheng/crud-operation-react-firebase-realtime-database-1bkn
-
-Firebase crud 
-https://bezkoder.com/react-firebase-crud/
+Firebase 
+https://firebase.google.com/docs/database/web/start
+https://firebase.google.com/docs/web/learn-more#ways-to-add-web-sdks
+https://firebase.google.com/docs/database/web/read-and-write
 
 ---------------------------------------------------
 Sources:
