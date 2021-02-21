@@ -43,13 +43,14 @@ class TodayHabits extends Component{
       }
     })
   };
+  
 
-  PUThabit = (functionArgs) => {
-    let objectToUpdate = {
-      [functionArgs.attribute]:functionArgs.newValue
-    }
+  PUThabit = (habitId, newData) => {
+    // let objectToUpdate = {
+    //   [functionArgs.attribute]:functionArgs.newValue
+    // }
 
-    return firebase.database().ref(`/habits/${functionArgs.id}`).update(objectToUpdate,
+    return firebase.database().ref(`/habits/${habitId}`).update(newData,
       (error) => {
         if (error){
           console.log('Updating the habit on the server has failed');
@@ -62,15 +63,20 @@ class TodayHabits extends Component{
 
 
   completionClickHandler = (todayHabitId) =>{
+    //Making sure I do not update the state immediately
     const todayHabits = [...this.state.todayHabits];
-    const myHabit = {...todayHabits[todayHabitId]};
-    myHabit.completed = false;
-    todayHabits[todayHabitId] = myHabit;
-    this.setState({todayHabits:todayHabits});
+    const myHabit = todayHabits.filter(habit=>{return habit.id === todayHabitId});
+    const habitToUpdate = new Object(...myHabit);
+    Date.now() -  habitToUpdate.completed < 86400000 ? habitToUpdate.completed = 0 : habitToUpdate.completed = Date.now();
+
+
+
+    //this.setState({todayHabits:todayHabits});
+    // console.log(habitToUpdate);
+    // console.log(todayHabits);
 
     //this.PUThabit({attribute: 'lastStreakUpdateTime', newValue: Date.now(), id: todayHabitId});
-    this.PUThabit({attribute: 'completed', newValue: myHabit.completed, id: todayHabitId});
-    this.GEThabits();
+    this.PUThabit(todayHabitId,habitToUpdate);
   }
   
   streakHandler = () =>{

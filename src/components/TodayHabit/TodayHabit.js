@@ -13,7 +13,10 @@ const todayHabit = (props) =>{
 
 //Evaluation component classes  
 const habitClasses = [classes.Habbit];
-if(props.completed){
+
+let completedToday = Date.now() - props.completed < 86400000;
+
+if(completedToday){
   habitClasses.push(classes.Completed);
 };
 
@@ -35,7 +38,7 @@ return(
       className={classes.HabitCompletionBtn}
       onClick={props.clicked}
       >
-        <img src={(props.completed ? checkmarkCompleted : checkmark )} className={(props.completed ? classes.CheckmarkCompleted : null )}/>
+        <img src={(completedToday ? checkmarkCompleted : checkmark )} className={(completedToday ? classes.CheckmarkCompleted : null )}/>
       </button>
   </div>
 </div>

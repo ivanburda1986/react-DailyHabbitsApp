@@ -8,7 +8,6 @@ import deletionIcon from '../../media/icons/delete.svg';
 
 
 const habit = (props) =>{
-
   //Evaluation component classes  
   const habitClasses = [classes.Habit];
   if(props.completed){
