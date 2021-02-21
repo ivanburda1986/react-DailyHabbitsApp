@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+
+
 //Own components
 import TodayHabit from '../../components/TodayHabit/TodayHabit';
 
@@ -62,24 +64,36 @@ class TodayHabits extends Component{
   };
 
 
+  completedToday = (completionTimestamp) =>{
+    let today = new Date();
+    let todayMidnight = today.setHours(0,0,0,0);
+    let milisecondsSinceMidnight = Date.now() - todayMidnight;
+
+    console.log(milisecondsSinceMidnight);
+    return Date.now() - completionTimestamp < milisecondsSinceMidnight;
+  }
+
+
+
   completionClickHandler = (todayHabitId) =>{
     //Making sure I do not update the state immediately
     const todayHabits = [...this.state.todayHabits];
     const myHabit = todayHabits.filter(habit=>{return habit.id === todayHabitId});
+  
     const habitToUpdate = new Object(...myHabit);
-    Date.now() -  habitToUpdate.completed < 86400000 ? habitToUpdate.completed = 0 : habitToUpdate.completed = Date.now();
-
-
-
-    //this.setState({todayHabits:todayHabits});
-    // console.log(habitToUpdate);
-    // console.log(todayHabits);
-
-    //this.PUThabit({attribute: 'lastStreakUpdateTime', newValue: Date.now(), id: todayHabitId});
+    this.completedToday(habitToUpdate.completed) ? habitToUpdate.completed = 0 : habitToUpdate.completed = Date.now();
     this.PUThabit(todayHabitId,habitToUpdate);
+
+
+
+
   }
   
   streakHandler = () =>{
+
+
+
+
     // call this function always on component load and always on component update (after completionClickHandler)
     // habits for each check streak
     // updated today: streak keep, completed true
@@ -95,7 +109,7 @@ class TodayHabits extends Component{
     return(
       <div className={classes.TodayHabits}>
         {this.state.todayHabits.map(habit=>(
-          <TodayHabit key={habit.id} icon={habit.icon} title={habit.title} subtitle={habit.subtitle} streak={habit.streak} completed={habit.completed} clicked={()=>this.completionClickHandler(habit.id)}/>
+          <TodayHabit key={habit.id} icon={habit.icon} title={habit.title} subtitle={habit.subtitle} streak={habit.streak} completed={this.completedToday(habit.completed)} clicked={()=>this.completionClickHandler(habit.id)}/>
         ))}
       </div>
     );

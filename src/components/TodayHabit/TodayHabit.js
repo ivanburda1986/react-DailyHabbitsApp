@@ -9,14 +9,14 @@ import streakflame from '../../media/icons/streakflame.svg';
 
 
 
+
+
 const todayHabit = (props) =>{
 
 //Evaluation component classes  
 const habitClasses = [classes.Habbit];
 
-let completedToday = Date.now() - props.completed < 86400000;
-
-if(completedToday){
+if(props.completed){
   habitClasses.push(classes.Completed);
 };
 
@@ -38,7 +38,7 @@ return(
       className={classes.HabitCompletionBtn}
       onClick={props.clicked}
       >
-        <img src={(completedToday ? checkmarkCompleted : checkmark )} className={(completedToday ? classes.CheckmarkCompleted : null )}/>
+        <img src={(props.completed ? checkmarkCompleted : checkmark )} className={(props.completed ? classes.CheckmarkCompleted : null )}/>
       </button>
   </div>
 </div>
