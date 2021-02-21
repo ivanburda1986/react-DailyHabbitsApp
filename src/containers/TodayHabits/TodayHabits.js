@@ -48,9 +48,6 @@ class TodayHabits extends Component{
   
 
   PUThabit = (habitId, newData) => {
-    // let objectToUpdate = {
-    //   [functionArgs.attribute]:functionArgs.newValue
-    // }
 
     return firebase.database().ref(`/habits/${habitId}`).update(newData,
       (error) => {
@@ -69,7 +66,6 @@ class TodayHabits extends Component{
     let todayMidnight = today.setHours(0,0,0,0);
     let milisecondsSinceMidnight = Date.now() - todayMidnight;
 
-    console.log(milisecondsSinceMidnight);
     return Date.now() - completionTimestamp < milisecondsSinceMidnight;
   }
 
@@ -79,14 +75,19 @@ class TodayHabits extends Component{
     //Making sure I do not update the state immediately
     const todayHabits = [...this.state.todayHabits];
     const myHabit = todayHabits.filter(habit=>{return habit.id === todayHabitId});
-  
     const habitToUpdate = new Object(...myHabit);
-    this.completedToday(habitToUpdate.completed) ? habitToUpdate.completed = 0 : habitToUpdate.completed = Date.now();
+
+    //Set the completion state depending on whether the previous update was done today or yesterday
+    if(this.completedToday(habitToUpdate.completed)){
+      habitToUpdate.completed = 0;
+      habitToUpdate.streak -= 1;
+    } else{
+      habitToUpdate.completed = Date.now();
+      habitToUpdate.streak += 1;
+    }
+
+
     this.PUThabit(todayHabitId,habitToUpdate);
-
-
-
-
   }
   
   streakHandler = () =>{
