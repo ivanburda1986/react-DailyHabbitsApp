@@ -39,6 +39,7 @@ class SetupHabits extends Component {
   POSThabit= (newHabit)=> {
     firebase.database().ref('habits/' + newHabit.id).set({
       id : newHabit.id,
+      creationDate: newHabit.creationDate,
       icon : newHabit.icon,
       title : newHabit.title,
       subtitle : newHabit.subtitle,

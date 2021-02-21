@@ -33,8 +33,12 @@ class HabitTemplate extends Component {
     let newHabitTitleInput = document.getElementById("newHabitTitleInput");
     let newHabitDescriptionInput = document.getElementById("newHabitDescriptionInput");
 
+    let date = new Date();
+    let creationDate = date.setHours(0,0,0,0);
+
     const newHabit = {
       id : uuidv4(),
+      creationDate: creationDate,
       icon : this.state.selectedIconImage,
       title : newHabitTitleInput.value,
       subtitle : newHabitDescriptionInput.value,

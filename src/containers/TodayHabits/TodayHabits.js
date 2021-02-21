@@ -21,6 +21,7 @@ import database from '../../firebase';
 //Classes
 import classes from './TodayHabits.module.css';
 import habitIconSelection from '../../components/UI/HabitIconSelection/HabitIconSelection';
+import habit from '../../components/Habit/Habit';
 
 
 class TodayHabits extends Component{
@@ -33,6 +34,7 @@ class TodayHabits extends Component{
   //Event handlers
   componentDidMount(){
     this.GEThabits();
+    
     }
   
   GEThabits = () => {
@@ -43,7 +45,11 @@ class TodayHabits extends Component{
       if(data !== null){
         this.setState({todayHabits: Object.values(data)});
       }
+
+      //Trigger streak evaluation
+      this.streakHandler();
     })
+    
   };
   
 
@@ -70,37 +76,49 @@ class TodayHabits extends Component{
   }
 
 
-
   completionClickHandler = (todayHabitId) =>{
     //Making sure I do not update the state immediately
     const todayHabits = [...this.state.todayHabits];
+    console.log(todayHabits);
     const myHabit = todayHabits.filter(habit=>{return habit.id === todayHabitId});
     const habitToUpdate = new Object(...myHabit);
 
     //Set the completion state depending on whether the previous update was done today or yesterday
     if(this.completedToday(habitToUpdate.completed)){
       habitToUpdate.completed = 0;
-      habitToUpdate.streak -= 1;
+      habitToUpdate.streak-= 1;
     } else{
       habitToUpdate.completed = Date.now();
-      habitToUpdate.streak += 1;
+      habitToUpdate.streak+= 1;
     }
 
-
-    this.PUThabit(todayHabitId,habitToUpdate);
+    this.PUThabit(todayHabitId, habitToUpdate);
   }
   
   streakHandler = () =>{
 
+    //Returns number of hours since the habit creation
+    const daysSinceCreation = (habitCreationDate) =>{
+      let today = new Date();
+      let todayMidnight = today.setHours(0,0,0,0);
+      todayMidnight = todayMidnight/1000;
+      let difference = ((todayMidnight - habitCreationDate));
+      let hours = parseFloat((difference / 3600).toFixed(2));
+      let days = hours/24;
 
+      console.log(days);
+      return days;
+    }
 
-
-    // call this function always on component load and always on component update (after completionClickHandler)
-    // habits for each check streak
-    // updated today: streak keep, completed true
-    // updated yesterday: streak keep, completed false
-    // updated before yesterday: streak reset, completed false
-    // send to server
+    //Compare a habit age to the number of streaks is has. If the difference is higher than 2 then resets the streak
+    const todayHabits = [...this.state.todayHabits];
+    const habitWithExpiredStreak = todayHabits.filter(habit=>{
+      return daysSinceCreation(habit.creationDate) > 2;
+    });
+    habitWithExpiredStreak.forEach(habit=>{
+      habit.streak = 0;
+      //this.PUThabit(habit.id, habit);
+    })
   }
 
 
