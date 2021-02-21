@@ -43,8 +43,7 @@ class SetupHabits extends Component {
       title : newHabit.title,
       subtitle : newHabit.subtitle,
       streak : newHabit.streak,
-      lastStreakUpdateTime : newHabit.lastStreakUpdateTime,
-      lastButOnStreakUpdateTime: newHabit.lastButOnStreakUpdateTime,
+      completed: newHabit.completed,
     }, 
     (error) => {
       if (error){

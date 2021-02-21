@@ -39,8 +39,7 @@ class HabitTemplate extends Component {
       title : newHabitTitleInput.value,
       subtitle : newHabitDescriptionInput.value,
       streak : 0,
-      lastStreakUpdateTime : null,
-      lastButOnStreakUpdateTime: null,
+      completed: false,
     }
     this.props.addHabit(newHabit);
     this.clearUI();

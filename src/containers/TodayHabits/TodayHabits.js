@@ -32,7 +32,6 @@ class TodayHabits extends Component{
   componentDidMount(){
     this.GEThabits();
     }
-
   
   GEThabits = () => {
     const habits = firebase.database().ref('/habits');
@@ -65,11 +64,13 @@ class TodayHabits extends Component{
   completionClickHandler = (todayHabitId) =>{
     const todayHabits = [...this.state.todayHabits];
     const myHabit = {...todayHabits[todayHabitId]};
-    myHabit.lastStreakUpdateTime = Date.now();
+    myHabit.completed = false;
     todayHabits[todayHabitId] = myHabit;
     this.setState({todayHabits:todayHabits});
 
-    this.PUThabit({attribute: 'lastStreakUpdateTime', newValue: Date.now(), id: todayHabitId});
+    //this.PUThabit({attribute: 'lastStreakUpdateTime', newValue: Date.now(), id: todayHabitId});
+    this.PUThabit({attribute: 'completed', newValue: myHabit.completed, id: todayHabitId});
+    this.GEThabits();
   }
   
   streakHandler = () =>{
