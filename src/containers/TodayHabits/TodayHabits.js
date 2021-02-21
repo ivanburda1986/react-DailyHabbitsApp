@@ -86,7 +86,7 @@ class TodayHabits extends Component{
     //Set the completion state depending on whether the previous update was done today or yesterday
     if(this.completedToday(habitToUpdate.completed)){
       habitToUpdate.completed = 0;
-      habitToUpdate.streak-= 1;
+      habitToUpdate.streak >0 ? habitToUpdate.streak-= 1 : habitToUpdate.streak= 0;
     } else{
       habitToUpdate.completed = Date.now();
       habitToUpdate.streak+= 1;
@@ -106,18 +106,23 @@ class TodayHabits extends Component{
       let hours = parseFloat((difference / 3600).toFixed(2));
       let days = hours/24;
 
-      console.log(days);
-      return days;
+      console.log(difference);
+      console.log(hours);
+      return hours;
     }
 
     //Compare a habit age to the number of streaks is has. If the difference is higher than 2 then resets the streak
     const todayHabits = [...this.state.todayHabits];
     const habitWithExpiredStreak = todayHabits.filter(habit=>{
-      return daysSinceCreation(habit.creationDate) > 2;
+      return daysSinceCreation(habit.creationDate) > 48;
     });
     habitWithExpiredStreak.forEach(habit=>{
       habit.streak = 0;
-      //this.PUThabit(habit.id, habit);
+      habit.completed = 0;
+      let date = new Date();
+      let creationDate = date.setHours(0,0,0,0);
+      habit.creationDate = creationDate;
+      this.PUThabit(habit.id, habit);
     })
   }
 
