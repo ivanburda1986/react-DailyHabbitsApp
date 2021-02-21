@@ -104,17 +104,15 @@ class TodayHabits extends Component{
       todayMidnight = todayMidnight/1000;
       let difference = ((todayMidnight - habitCreationDate));
       let hours = parseFloat((difference / 3600).toFixed(2));
-      let days = hours/24;
-
-      console.log(difference);
+ 
       console.log(hours);
       return hours;
     }
 
-    //Compare a habit age to the number of streaks is has. If the difference is higher than 2 then resets the streak
+    //Compare a habit age to the number of streaks is has. If the difference is higher than 48 then resets the streak
     const todayHabits = [...this.state.todayHabits];
     const habitWithExpiredStreak = todayHabits.filter(habit=>{
-      return daysSinceCreation(habit.creationDate) > 48;
+      return daysSinceCreation(habit.creationDate) > habit.streak*24;
     });
     habitWithExpiredStreak.forEach(habit=>{
       habit.streak = 0;
