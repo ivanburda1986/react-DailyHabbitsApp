@@ -1,27 +1,17 @@
 import React, {Component} from 'react';
-
-
+import {Link} from 'react-router-dom';
 
 //Own components
 import TodayHabit from '../../components/TodayHabit/TodayHabit';
+import Button from '../../components/UI/Button/Button';
 
 //Firebase
 import firebase from "firebase";
 import database from '../../firebase';
 
-//Icons
-// import sportIcon from '../../media/icons/sport.png';
-// import sleepIcon from '../../media/icons/sleep.png';
-// import readingIcon from '../../media/icons/reading.png';
-// import programmingIcon from '../../media/icons/programming.png';
-// import guitarIcon from '../../media/icons/guitar.png';
-// import alarmclockIcon from '../../media/icons/alarmclock.png'
-
-
 //Classes
 import classes from './TodayHabits.module.css';
-import habitIconSelection from '../../components/UI/HabitIconSelection/HabitIconSelection';
-import habit from '../../components/Habit/Habit';
+
 
 
 class TodayHabits extends Component{
@@ -36,7 +26,7 @@ class TodayHabits extends Component{
     this.GEThabits();
     
     }
-  
+
   GEThabits = () => {
     const habits = firebase.database().ref('/habits');
     habits.on('value', (snapshot) =>{
@@ -52,7 +42,6 @@ class TodayHabits extends Component{
     
   };
   
-
   PUThabit = (habitId, newData) => {
 
     return firebase.database().ref(`/habits/${habitId}`).update(newData,
@@ -96,7 +85,6 @@ class TodayHabits extends Component{
   }
   
   streakHandler = () =>{
-
     //Returns number of hours since the habit creation
     const daysSinceCreation = (habitCreationDate) =>{
       let today = new Date();
@@ -104,8 +92,6 @@ class TodayHabits extends Component{
       todayMidnight = todayMidnight/1000;
       let difference = ((todayMidnight - habitCreationDate));
       let hours = parseFloat((difference / 3600).toFixed(2));
- 
-      console.log(hours);
       return hours;
     }
 
@@ -124,15 +110,40 @@ class TodayHabits extends Component{
     })
   }
 
-
+  //No habits -> create the first one
+  createHabitHandler = () =>{
+    console.log('hello');
+  }
 
   render(){
 
+    //Today habits
+    let todayHabits = this.state.todayHabits.map(habit=>(
+      <TodayHabit 
+        key={habit.id} 
+        icon={habit.icon} 
+        title={habit.title} 
+        subtitle={habit.subtitle} 
+        streak={habit.streak} 
+        completed={this.completedToday(habit.completed)} 
+        clicked={()=>this.completionClickHandler(habit.id)}
+      />
+    ));
+    //No habits yet
+    if(todayHabits.length === 4){
+      todayHabits =
+      <div className={classes.noHabitsContainer}>
+        <p>There are no habits yet!</p>
+        <Link to="/setup">
+          <Button clicked={undefined} buttonTitle={"Create a habit"}/>
+        </Link>
+      </div>
+    }
+
+
     return(
       <div className={classes.TodayHabits}>
-        {this.state.todayHabits.map(habit=>(
-          <TodayHabit key={habit.id} icon={habit.icon} title={habit.title} subtitle={habit.subtitle} streak={habit.streak} completed={this.completedToday(habit.completed)} clicked={()=>this.completionClickHandler(habit.id)}/>
-        ))}
+        {todayHabits}
       </div>
     );
   }

@@ -6,7 +6,12 @@ import classes from './Button.module.css';
 const button = (props) =>{
 
   return(
-    <button className={classes.Button} onClick={()=>props.clicked()}>{props.buttonTitle}</button>
+    <button 
+    className={classes.Button} 
+    onClick={()=>{if(props.clickd===undefined){return}else{props.clicked()}} }>
+      
+      {props.buttonTitle}
+    </button>
   );
 
 }
