@@ -1,22 +1,45 @@
-HABIT SETUP
-Creation/Deletion of a habit -> POST
+ROADMAP 
+-----------------------------------------------------
 
-TODAY 
-Upon entering the page always re-fetch habits from the server
-For each habit: check streak last update date vs today's date
-* TODAY - SLUD >= 1: show streak as 0
-* TODAY - SLUD < 1: show streak number from the server
+MVP
+Today page 
+- show the current date 
+- no habit yet => create the first one 
 
-Tick UI state: SLUD === today -> ticked 
+Setup page 
+- more habit icons 
+- a generic icon suitable for any habit 
+- Create button validation 
+- habit deletion confirmation 
+- show the streak to make the user aware they may be deleting a habit with a streak 
 
-Tick: POST streak++, SLUD = current timestamp + refetch 
-Untick: POST streak --, SLUD = previous SLUD + refetch 
+Header 
+- make sure the header changes for the Today/Setup routes 
+
+
+Menu 
+- Today 
+- Setup 
+- Credits 
+
+-------------------------------------------------------
+
+Iteration 2
+- Setup a streak goal 
+- Hall of fame for goals where the streak was reached 
+- Individual goals in the HOF are deletable + Delete all 
+
+-------------------------------------------------------
+
+Iteration 3
+Authorisation 
+Registration 
 
 
 
 
-
-
+====================================================================
+====================================================================
 
 Firebase 
 https://firebase.google.com/docs/database/web/start
@@ -33,29 +56,3 @@ Freeicons: https://freeicons.io/filter/popular/all/guitar
 Edit icons: https://www.iconfinder.com/editor/
 Design idea: https://dribbble.com/shots/2452209-Entertainment-App
 
-
-
-<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/8.2.8/firebase-app.js"></script>
-
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="https://www.gstatic.com/firebasejs/8.2.8/firebase-analytics.js"></script>
-
-<script>
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  var firebaseConfig = {
-    apiKey: "AIzaSyBERXVHlBmqzrOnUEFhfjji2k1GZ7pXfYU",
-    authDomain: "habits-6349a.firebaseapp.com",
-    databaseURL: "https://habits-6349a-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "habits-6349a",
-    storageBucket: "habits-6349a.appspot.com",
-    messagingSenderId: "491187493233",
-    appId: "1:491187493233:web:e7d0032961a21b581b7ed0",
-    measurementId: "G-7NE3EC8LYV"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
-</script>
