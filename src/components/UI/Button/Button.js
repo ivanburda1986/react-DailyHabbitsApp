@@ -8,7 +8,7 @@ const button = (props) =>{
   return(
     <button 
     className={classes.Button} 
-    onClick={()=>{if(props.clickd===undefined){return}else{props.clicked()}} }>
+    onClick={()=>{if(props.clicked===undefined){return}else{props.clicked()}} }>
       
       {props.buttonTitle}
     </button>

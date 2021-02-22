@@ -92,6 +92,7 @@ class TodayHabits extends Component{
       todayMidnight = todayMidnight/1000;
       let difference = ((todayMidnight - habitCreationDate));
       let hours = parseFloat((difference / 3600).toFixed(2));
+      console.log("Hodin:" + hours);
       return hours;
     }
 
@@ -130,7 +131,7 @@ class TodayHabits extends Component{
       />
     ));
     //No habits yet
-    if(todayHabits.length === 4){
+    if(todayHabits.length === 0){
       todayHabits =
       <div className={classes.noHabitsContainer}>
         <p>There are no habits yet!</p>
