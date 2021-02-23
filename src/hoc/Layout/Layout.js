@@ -4,7 +4,6 @@ import TopNavigation from '../../components/Navigation/TopNavigation/TopNavigati
 
 
 class Layout extends Component {
-
   render(){
     return(
       <React.Fragment>

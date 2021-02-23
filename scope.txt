@@ -3,8 +3,8 @@ ROADMAP
 
 MVP
 Today page 
-- show the current date 
-- no habit yet => create the first one 
+DONE- show the current date
+DONE- no habit yet => create the first one 
 
 Setup page 
 - more habit icons 
@@ -14,7 +14,7 @@ Setup page
 - show the streak to make the user aware they may be deleting a habit with a streak 
 
 Header 
-- make sure the header changes for the Today/Setup routes 
+DONE- make sure the header changes for the Today/Setup routes 
 
 
 Menu 
