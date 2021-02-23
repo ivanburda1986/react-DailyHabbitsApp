@@ -7,8 +7,8 @@ DONE- show the current date
 DONE- no habit yet => create the first one 
 
 Setup page 
-- more habit icons 
-- a generic icon suitable for any habit 
+DONE- more habit icons 
+DONE- a generic icon suitable for any habit 
 - Create button validation 
 - habit deletion confirmation 
 - show the streak to make the user aware they may be deleting a habit with a streak 
@@ -16,11 +16,15 @@ Setup page
 Header 
 DONE- make sure the header changes for the Today/Setup routes 
 
-
 Menu 
 - Today 
 - Setup 
 - Credits 
+
+Technical 
+- wrap everything into an error catcher 
+- show a snack bar if an error happens 
+- show a snack bar if a habit gets deleted
 
 -------------------------------------------------------
 

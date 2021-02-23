@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 
 //Firebase
 import firebase from "firebase";
-import database from '../../firebase';
-
-//Axios
-import axios from '../../axios-habits';
 
 //Own components
 import Habit from '../../components/Habit/Habit';
@@ -13,15 +9,6 @@ import HabitTemplate from '../../components/HabitTemplate/HabitTemplate';
 
 //Styles
 import classes from './SetupHabits.module.css';
-
-//Icons
-import sportIcon from '../../media/icons/sport.png';
-import sleepIcon from '../../media/icons/sleep.png';
-import readingIcon from '../../media/icons/reading.png';
-import programmingIcon from '../../media/icons/programming.png';
-import guitarIcon from '../../media/icons/guitar.png';
-import alarmclockIcon from '../../media/icons/alarmclock.png'
-
 
 class SetupHabits extends Component {
   state={

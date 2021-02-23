@@ -15,14 +15,16 @@ import readingIcon from '../../media/icons/reading.png';
 import programmingIcon from '../../media/icons/programming.png';
 import guitarIcon from '../../media/icons/guitar.png';
 import alarmclockIcon from '../../media/icons/alarmclock.png'
-import questionmark from '../../media/icons/questionmark.svg';
+import mealIcon from '../../media/icons/meal.png'
+import generalIcon from '../../media/icons/general.png'
+import badhabitIcon from '../../media/icons/badhabit.png'
 
 
 class HabitTemplate extends Component {
 
   state={
-    selectedIcon: "sportIcon",
-    selectedIconImage: sportIcon,
+    selectedIcon: "generalIcon",
+    selectedIconImage: generalIcon,
   }
 
   handleIconSelection = (clickedIcon)=>{
@@ -77,12 +79,15 @@ class HabitTemplate extends Component {
         <div className={classes.HabitTemplateBottom}>
           <div className={classes.HabitTemplateBottomLeft}>
               
+          <HabitIconSelection iconImage={generalIcon} iconName="generalIcon" selectedIcon={this.state.selectedIcon} clicked={()=>this.handleIconSelection} />
+          <HabitIconSelection iconImage={badhabitIcon} iconName="badhabitIcon" selectedIcon={this.state.selectedIcon} clicked={()=>this.handleIconSelection} />
           <HabitIconSelection iconImage={sportIcon} iconName="sportIcon" selectedIcon={this.state.selectedIcon} clicked={()=>this.handleIconSelection} />
           <HabitIconSelection iconImage={sleepIcon} iconName="sleepIcon" selectedIcon={this.state.selectedIcon} clicked={()=>this.handleIconSelection} />
           <HabitIconSelection iconImage={readingIcon} iconName="readingIcon" selectedIcon={this.state.selectedIcon} clicked={()=>this.handleIconSelection} />
           <HabitIconSelection iconImage={programmingIcon} iconName="programmingIcon" selectedIcon={this.state.selectedIcon} clicked={()=>this.handleIconSelection} />
           <HabitIconSelection iconImage={guitarIcon} iconName="guitarIcon" selectedIcon={this.state.selectedIcon} clicked={()=>this.handleIconSelection} />
           <HabitIconSelection iconImage={alarmclockIcon} iconName="alarmclockIcon" selectedIcon={this.state.selectedIcon} clicked={()=>this.handleIconSelection} />
+          <HabitIconSelection iconImage={mealIcon} iconName="mealIcon" selectedIcon={this.state.selectedIcon} clicked={()=>this.handleIconSelection} />
           </div>
   
           <div className={classes.HabitTemplateBottomRight}>

@@ -131,7 +131,7 @@ class TodayHabits extends Component{
       />
     ));
     //No habits yet
-    if(todayHabits.length === 3){
+    if(todayHabits.length === 0){
       todayHabits =
       <div className={classes.noHabitsContainer}>
         <p>There are no habits yet!</p>
