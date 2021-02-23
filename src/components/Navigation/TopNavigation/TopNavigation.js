@@ -13,8 +13,10 @@ const getRouteName = () =>{
 
 const displayDate = () =>{
   let date = new Date();
-  let den = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
-  return den;
+  let todaysDate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
+
+  getRouteName() === "Today" ? todaysDate = todaysDate : todaysDate = null;
+  return todaysDate;
 }
 
 const topNavigation = (props) =>{

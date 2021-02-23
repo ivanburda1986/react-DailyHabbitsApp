@@ -10,7 +10,6 @@ Setup page
 DONE- more habit icons 
 DONE- a generic icon suitable for any habit 
 DONE- Create button validation 
-- habit deletion confirmation 
 DONE- show the streak to make the user aware they may be deleting a habit with a streak 
 
 Header 
@@ -24,7 +23,7 @@ Menu
 Technical 
 - wrap everything into an error catcher 
 - show a snack bar if an error happens 
-- show a snack bar if a habit gets deleted
+- show a snack bar if a habit gets deleted + UNDO option
 
 -------------------------------------------------------
 
