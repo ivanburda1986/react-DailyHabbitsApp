@@ -41,7 +41,7 @@ class HabitTemplate extends Component {
       HabitTemplateDescription:{
         value: '',
         validation:{
-          required: true
+          required: false
         },
         valid: false,
         touched: false,
@@ -58,8 +58,8 @@ class HabitTemplate extends Component {
       id : uuidv4(),
       creationDate: creationDate,
       icon : this.state.selectedIconImage,
-      title : newHabitTitleInput.value,
-      subtitle : newHabitDescriptionInput.value,
+      title : document.getElementById("newHabitTitleInput").value,
+      subtitle : document.getElementById("newHabitDescriptionInput").value,
       streak : 0,
       completed: 0,
     }
@@ -75,7 +75,7 @@ class HabitTemplate extends Component {
   clearUI =()=>{
     document.getElementById("newHabitTitleInput").value = "";
     document.getElementById("newHabitDescriptionInput").value = "";
-    this.setState({selectedIcon: 'sportIcon', selectedIconImage: sportIcon});
+    this.setState({selectedIcon: 'generalIcon', selectedIconImage: generalIcon});
   }
 
   checkValidity = (value, rules) => {
