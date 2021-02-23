@@ -25,6 +25,9 @@ const habit = (props) =>{
       <p className={classes.Subtitle}>{props.subtitle}</p>
     </div>
     <div className={classes.HabitRight}>
+      <div className={classes.Streak}>
+        {props.streak}
+      </div>
       <button 
         className={classes.HabitDeletionBtn}
         onClick={props.clicked}

@@ -9,9 +9,9 @@ DONE- no habit yet => create the first one
 Setup page 
 DONE- more habit icons 
 DONE- a generic icon suitable for any habit 
-- Create button validation 
+DONE- Create button validation 
 - habit deletion confirmation 
-- show the streak to make the user aware they may be deleting a habit with a streak 
+DONE- show the streak to make the user aware they may be deleting a habit with a streak 
 
 Header 
 DONE- make sure the header changes for the Today/Setup routes 
