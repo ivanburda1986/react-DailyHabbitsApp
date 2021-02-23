@@ -19,22 +19,38 @@ import mealIcon from '../../media/icons/meal.png'
 import generalIcon from '../../media/icons/general.png'
 import badhabitIcon from '../../media/icons/badhabit.png'
 
+//DOM Selectors
+let newHabitTitleInput = document.getElementById("newHabitTitleInput");
+let newHabitDescriptionInput = document.getElementById("newHabitDescriptionInput");
 
 class HabitTemplate extends Component {
 
   state={
     selectedIcon: "generalIcon",
     selectedIconImage: generalIcon,
+
+    habitForm:{
+      HabitTemplateTitle:{
+        value: '',
+        validation:{
+          required: true
+        },
+        valid: false,
+        touched: false,
+      },
+      HabitTemplateDescription:{
+        value: '',
+        validation:{
+          required: true
+        },
+        valid: false,
+        touched: false,
+      }
+    },
+    formIsValid: false,
   }
 
-  handleIconSelection = (clickedIcon)=>{
-    this.setState({selectedIcon: clickedIcon.target.value, selectedIconImage:clickedIcon.target.nextSibling.children[0].src});
-  };
-
   createNewHabit =()=>{
-    let newHabitTitleInput = document.getElementById("newHabitTitleInput");
-    let newHabitDescriptionInput = document.getElementById("newHabitDescriptionInput");
-
     let date = new Date();
     let creationDate = date.setHours(0,0,0,0);
 
@@ -51,10 +67,45 @@ class HabitTemplate extends Component {
     this.clearUI();
   }
 
+  handleIconSelection = (clickedIcon)=>{
+    this.setState({selectedIcon: clickedIcon.target.value, selectedIconImage:clickedIcon.target.nextSibling.children[0].src});
+  };
+
+
   clearUI =()=>{
     document.getElementById("newHabitTitleInput").value = "";
     document.getElementById("newHabitDescriptionInput").value = "";
     this.setState({selectedIcon: 'sportIcon', selectedIconImage: sportIcon});
+  }
+
+  checkValidity = (value, rules) => {
+    let isValid = true;
+    if(rules.required){
+      isValid = value.trim() !== '' && isValid;
+    }
+
+    return isValid;
+  }
+
+  inputChangedHandler = (event) =>{
+    const updatedHabitForm = {
+      ...this.state.habitForm
+    };
+    const updatedHabitFormElement = {
+      ...updatedHabitForm[event.target.name]
+    };
+    updatedHabitFormElement.value = event.target.value;
+    updatedHabitFormElement.valid = this.checkValidity(updatedHabitFormElement.value, updatedHabitFormElement.validation);
+    updatedHabitFormElement.touched = true;
+    updatedHabitForm[event.target.name] = updatedHabitFormElement;
+
+    let formIsValid = false;
+    if(updatedHabitForm["HabitTemplateTitle"].valid && updatedHabitForm["HabitTemplateDescription"].valid){
+      formIsValid = true;
+    }
+
+    this.setState({habitForm: updatedHabitForm, formIsValid:formIsValid});
+
   }
 
 
@@ -69,9 +120,9 @@ class HabitTemplate extends Component {
           <div className={classes.HabitTemplateTopRight}>
             <form>
               <label htmlFor="HabitTemplateTitle"></label>
-              <input type="text" id="newHabitTitleInput" className={classes.HabitTemplateTitle} name="HabitTemplateTitle" placeholder="New habit name"></input>
+              <input type="text" id="newHabitTitleInput" className={classes.HabitTemplateTitle} name="HabitTemplateTitle" placeholder="New habit name" onChange={(event)=>this.inputChangedHandler(event)}></input>
               <label htmlFor="HabitTemplateDescription"></label>
-              <input type="text" id="newHabitDescriptionInput" className={classes.HabitTemplateDescription} name="HabitTemplateDescription" placeholder="Habit details"></input>
+              <input type="text" id="newHabitDescriptionInput" className={classes.HabitTemplateDescription} name="HabitTemplateDescription" placeholder="Habit details" onChange={(event)=>this.inputChangedHandler(event)}></input>
             </form>
           </div>
         </div>
@@ -91,7 +142,7 @@ class HabitTemplate extends Component {
           </div>
   
           <div className={classes.HabitTemplateBottomRight}>
-           <Button buttonTitle={"Create"} clicked={this.createNewHabit}/>
+           <Button disabled={!this.state.formIsValid} buttonTitle={"Create"} clicked={this.createNewHabit}/>
           </div>
         </div>
       </div>
