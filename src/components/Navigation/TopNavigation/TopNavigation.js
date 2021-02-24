@@ -24,7 +24,7 @@ const topNavigation = (props) =>{
   return(
     <div className={classes.TopNavigation}>
       <div className={classes.Container}>
-        <div className={classes.Hamburger}>
+        <div className={classes.Hamburger} onClick={props.clicked}>
           <div className={classes.HamburgerLine}></div>
           <div className={classes.HamburgerLine}></div>
           <div className={classes.HamburgerLine}></div>

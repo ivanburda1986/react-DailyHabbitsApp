@@ -1,0 +1,19 @@
+.OverlayMenu{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  z-index: 200;
+  background-color: rgba(255, 255, 255, 0.541);
+  box-sizing: border-box;
+  transition: transform 0.3s ease-out;
+}
+
+.Open{
+  transform: translateY(0)
+}
+
+.Close{
+  transform: translateY(-100%);
+}
