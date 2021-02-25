@@ -16,9 +16,10 @@ class SetupHabits extends Component {
     habits: [
     
     ],
-    deletedHabits:[
+    habitsWaitingForDeletion:[
 
-    ]
+    ],
+    snackbarAvailableBottomDistance: 5,
   }
 
   //Event handlers
@@ -61,8 +62,26 @@ class SetupHabits extends Component {
 
 
   DELETEhabit = (habitId) => {
-    //return firebase.database().ref(`/habits/${habitId}`).remove();
+    setTimeout(
+      ()=>{
+        //Is the habit still waiting for deletion?
+        if(this.state.habitsWaitingForDeletion.findIndex(habit=>habit.id===habitId) !==-1){
+          //Remove the habit from the habits waiting for deletion
+          let habitsWaitingForDeletion = [...this.state.habitsWaitingForDeletion];
+          let updateHabitsWaitingForDeletion = habitsWaitingForDeletion.filter(element=>{
+            return element.id !== habitId;
+          })
+          this.setState({habitsWaitingForDeletion:updateHabitsWaitingForDeletion});
+
+          //Delete the habit from the server db
+          //return firebase.database().ref(`/habits/${habitId}`).remove();
+          console.log('Deleted from the database.');
+        } else{
+          console.log('The habit was not waiting for deletion anymore');
+        }
+      },10000);
   };
+
 
 
 
@@ -88,9 +107,41 @@ class SetupHabits extends Component {
     let habitToDelete = this.state.habits.filter(element=>{
       return element.id === habitToDeleteId;
     })
+    let habitsWaitingForDeletion = [...this.state.habitsWaitingForDeletion];
+    habitsWaitingForDeletion.push(...habitToDelete);
+    this.setState({habitsWaitingForDeletion:habitsWaitingForDeletion});
 
+    //Wait before deleting the habit from the database
     this.DELETEhabit(habitToDeleteId);
   }
+
+
+  undoHabitDeletionHandler = (habitId) =>{
+    //Is the habit still waiting for deletion?
+    if(this.state.habitsWaitingForDeletion.findIndex(habit=>habit.id===habitId) !==-1){
+      let habitsWaitingForDeletion = [...this.state.habitsWaitingForDeletion];
+      let existingHabits = [...this.state.habits];
+
+      //Get the habit waiting for deletion and push it to existing habits
+      let habitToBeRestored = habitsWaitingForDeletion.filter(element=>{
+        return element.id === habitId;
+      })
+      existingHabits.push(...habitToBeRestored);
+      this.setState({habits: existingHabits});
+
+      //Remove the habit from the habits waiting for deletion
+      let updateHabitsWaitingForDeletion = habitsWaitingForDeletion.filter(element=>{
+        return element.id !== habitId;
+      })
+      this.setState({habitsWaitingForDeletion:updateHabitsWaitingForDeletion});
+    }
+    
+    console.log('The habit deletion has been undone');
+  }
+
+
+
+
 
   render() {
     return (
@@ -104,7 +155,11 @@ class SetupHabits extends Component {
             <Habit key={habit.id} icon={habit.icon} title={habit.title} subtitle={habit.subtitle} streak={habit.streak} habitId={habit.id} clicked={this.deleteHabitHandler}/>
           ))}
         </div>
-        <Snackbar/>
+
+        {/* Snackbars */}
+        {this.state.habitsWaitingForDeletion.map(habit=>(
+          <Snackbar key={habit.id} deletedHabitName={habit.title} bottomDistance={this.state.snackbarAvailableBottomDistance} clicked={()=>this.undoHabitDeletionHandler(habit.id)}/>
+        ))}
       </React.Fragment>
     );
   }

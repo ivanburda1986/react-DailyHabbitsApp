@@ -10,9 +10,9 @@ const Snackbar = (props) =>{
   }
 
   return(
-    <div className={snackbarClasses.join(" ")} style={{bottom: props.bottomDistance}}>
+    <div className={snackbarClasses.join(" ")} style={{bottom: `${props.bottomDistance}vh`}}>
       <p>"{props.deletedHabitName}" habit has been deleted.</p>
-      <button onClick={props.undo}>UNDO</button>
+      <button onClick={props.clicked}>UNDO</button>
     </div>
   );
 
