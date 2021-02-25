@@ -11,6 +11,9 @@ import Snackbar from '../../components/Snackbar/Snackbar';
 //Styles
 import classes from './SetupHabits.module.css';
 
+
+let snackBars = [];
+
 class SetupHabits extends Component {
   state={
     habits: [
@@ -19,7 +22,7 @@ class SetupHabits extends Component {
     habitsWaitingForDeletion:[
 
     ],
-    snackbarAvailableBottomDistance: 50,
+    snackbarDistance: 50,
   }
 
   //Event handlers
@@ -81,7 +84,7 @@ class SetupHabits extends Component {
         }
       },5000);
   };
-
+  
 
   //Handlers
   addHabitHandler = (newHabit) => {
@@ -138,7 +141,22 @@ class SetupHabits extends Component {
     console.log('The habit deletion has been undone');
   }
 
+  nextSnackbarPosition = () =>{
+    let startingPosition = 50;
+    let numberOfVisibleSnackbars = this.state.habitsWaitingForDeletion.length;
+
+    if(this.state.habitsWaitingForDeletion.length === 1){
+      return startingPosition;
+    } else{
+      return 80*numberOfVisibleSnackbars;
+    }
+    
+  }
+
+
+
   render() {
+
     return (
       <React.Fragment>
         <div className={classes.SetupHabits}>
@@ -153,7 +171,7 @@ class SetupHabits extends Component {
 
         {/* Snackbars */}
         {this.state.habitsWaitingForDeletion.map(habit=>(
-          <Snackbar id={habit.id} key={habit.id} deletedHabitName={habit.title} bottomDistance={this.state.snackbarAvailableBottomDistance} clicked={()=>this.undoHabitDeletionHandler(habit.id)}/>
+          <Snackbar id={habit.id} key={habit.id} deletedHabitName={habit.title} bottomDistance={this.nextSnackbarPosition()} clicked={()=>this.undoHabitDeletionHandler(habit.id)}/>
         ))}
       </React.Fragment>
     );

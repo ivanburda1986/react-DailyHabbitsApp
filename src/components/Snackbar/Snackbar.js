@@ -6,7 +6,7 @@ const Snackbar = (props) =>{
   let snackbarClasses= [classes.Snackbar];
 
   setTimeout(function(){
-    console.log(document.getElementById(props.id).classList.add(classes.Disappear));;
+    document.getElementById(props.id).classList.add(classes.Disappear);
   }, 1);
 
   return(
