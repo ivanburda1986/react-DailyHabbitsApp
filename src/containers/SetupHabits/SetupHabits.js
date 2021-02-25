@@ -157,6 +157,10 @@ class SetupHabits extends Component {
 
   render() {
 
+    let snacks = this.state.habitsWaitingForDeletion.map(habit=>(
+      <Snackbar id={habit.id} key={habit.id} deletedHabitName={habit.title} bottomDistance={this.nextSnackbarPosition()} clicked={()=>this.undoHabitDeletionHandler(habit.id)}/>
+    ))
+
     return (
       <React.Fragment>
         <div className={classes.SetupHabits}>
@@ -170,9 +174,7 @@ class SetupHabits extends Component {
         </div>
 
         {/* Snackbars */}
-        {this.state.habitsWaitingForDeletion.map(habit=>(
-          <Snackbar id={habit.id} key={habit.id} deletedHabitName={habit.title} bottomDistance={this.nextSnackbarPosition()} clicked={()=>this.undoHabitDeletionHandler(habit.id)}/>
-        ))}
+        {snacks}
       </React.Fragment>
     );
   }
