@@ -19,7 +19,7 @@ class SetupHabits extends Component {
     habitsWaitingForDeletion:[
 
     ],
-    snackbarAvailableBottomDistance: 5,
+    snackbarAvailableBottomDistance: 50,
   }
 
   //Event handlers
@@ -79,10 +79,8 @@ class SetupHabits extends Component {
         } else{
           console.log('The habit was not waiting for deletion anymore');
         }
-      },10000);
+      },5000);
   };
-
-
 
 
   //Handlers
@@ -110,6 +108,7 @@ class SetupHabits extends Component {
     let habitsWaitingForDeletion = [...this.state.habitsWaitingForDeletion];
     habitsWaitingForDeletion.push(...habitToDelete);
     this.setState({habitsWaitingForDeletion:habitsWaitingForDeletion});
+    
 
     //Wait before deleting the habit from the database
     this.DELETEhabit(habitToDeleteId);
@@ -139,10 +138,6 @@ class SetupHabits extends Component {
     console.log('The habit deletion has been undone');
   }
 
-
-
-
-
   render() {
     return (
       <React.Fragment>
@@ -158,7 +153,7 @@ class SetupHabits extends Component {
 
         {/* Snackbars */}
         {this.state.habitsWaitingForDeletion.map(habit=>(
-          <Snackbar key={habit.id} deletedHabitName={habit.title} bottomDistance={this.state.snackbarAvailableBottomDistance} clicked={()=>this.undoHabitDeletionHandler(habit.id)}/>
+          <Snackbar id={habit.id} key={habit.id} deletedHabitName={habit.title} bottomDistance={this.state.snackbarAvailableBottomDistance} clicked={()=>this.undoHabitDeletionHandler(habit.id)}/>
         ))}
       </React.Fragment>
     );

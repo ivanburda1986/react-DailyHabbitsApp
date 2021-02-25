@@ -14,8 +14,7 @@
   padding: 0px 10px;
   border-radius: 5px;
   box-shadow: 2px 2px 2px darkgray;
-
-  transition: transform 0.3s ease-out;
+  transition: opacity 5s ease-out;
 }
 
 .Snackbar p{
@@ -34,6 +33,6 @@
   cursor: pointer;
 }
 
-.Disappear{
-  opacity: 1;
+.Snackbar.Disappear{
+  opacity: 0;
 }
