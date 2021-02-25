@@ -111,11 +111,6 @@ class TodayHabits extends Component{
     })
   }
 
-  //No habits -> create the first one
-  createHabitHandler = () =>{
-    console.log('hello');
-  }
-
   render(){
 
     //Today habits

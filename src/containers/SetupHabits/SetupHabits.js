@@ -6,6 +6,7 @@ import firebase from "firebase";
 //Own components
 import Habit from '../../components/Habit/Habit';
 import HabitTemplate from '../../components/HabitTemplate/HabitTemplate';
+import Snackbar from '../../components/Snackbar/Snackbar';
 
 //Styles
 import classes from './SetupHabits.module.css';
@@ -14,6 +15,9 @@ class SetupHabits extends Component {
   state={
     habits: [
     
+    ],
+    deletedHabits:[
+
     ]
   }
 
@@ -57,8 +61,7 @@ class SetupHabits extends Component {
 
 
   DELETEhabit = (habitId) => {
-    return firebase.database().ref(`/habits/${habitId}`).remove();
-    //this.DELETEhabit('f0aa283c-0da9-4b76-88d3-62b7be527f39');
+    //return firebase.database().ref(`/habits/${habitId}`).remove();
   };
 
 
@@ -72,25 +75,37 @@ class SetupHabits extends Component {
   }
 
   deleteHabitHandler = (clickedHabit) => {
+    //Get ID of the habit to be deleted
     let habitToDeleteId = clickedHabit.target.parentNode.parentNode.parentNode.getAttribute("data-id");
+
+    //Get all habits except of the one which should be deleted and update the state
     let updatedHabits = this.state.habits.filter(element=>{
       return element.id !== habitToDeleteId;
     })
     this.setState({habits:updatedHabits});
+
+    //Get habit to be deleted and preserve it temporarily
+    let habitToDelete = this.state.habits.filter(element=>{
+      return element.id === habitToDeleteId;
+    })
+
     this.DELETEhabit(habitToDeleteId);
   }
 
   render() {
     return (
-      <div className={classes.SetupHabits}>
-        {/* Habits creation template */}
-        <HabitTemplate addHabit={this.addHabitHandler}/>
+      <React.Fragment>
+        <div className={classes.SetupHabits}>
+          {/* Habits creation template */}
+          <HabitTemplate addHabit={this.addHabitHandler}/>
 
-        {/* Individual habits */}
-        {this.state.habits.map(habit=>(
-          <Habit key={habit.id} icon={habit.icon} title={habit.title} subtitle={habit.subtitle} streak={habit.streak} habitId={habit.id} clicked={this.deleteHabitHandler}/>
-        ))}
-      </div>
+          {/* Individual habits */}
+          {this.state.habits.map(habit=>(
+            <Habit key={habit.id} icon={habit.icon} title={habit.title} subtitle={habit.subtitle} streak={habit.streak} habitId={habit.id} clicked={this.deleteHabitHandler}/>
+          ))}
+        </div>
+        <Snackbar/>
+      </React.Fragment>
     );
   }
 }

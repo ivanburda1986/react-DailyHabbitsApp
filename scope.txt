@@ -20,8 +20,6 @@ DONE- Today
 DONE- Setup 
 
 Technical 
-- wrap everything into an error catcher 
-- show a snack bar if an error happens 
 - show a snack bar if a habit gets deleted + UNDO option
 - the snackbars should autodisappear
 

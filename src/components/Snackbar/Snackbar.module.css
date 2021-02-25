@@ -1,0 +1,38 @@
+.Snackbar{
+  box-sizing: border-box;
+  position: fixed;
+  right: 5vw;
+  
+  z-index: 100;
+  
+  width: 240px;
+  height: 80px;
+
+  background-color:rgb(68, 63, 63);
+  
+
+  padding: 0px 10px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px darkgray;
+
+  transition: transform 0.3s ease-out;
+}
+
+.Snackbar p{
+  font-size: 0.8rem;
+  padding: 0px;
+  box-sizing: border-box;
+  color: pink;
+}
+
+.Snackbar button{
+  box-sizing: border-box;
+  border: none;
+  background: none;
+  color:rgb(231, 34, 34);
+  font-weight: 600;
+}
+
+.Disappear{
+  opacity: 1;
+}
