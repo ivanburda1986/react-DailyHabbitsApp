@@ -12,26 +12,60 @@ import Snackbar from '../../components/Snackbar/Snackbar';
 import classes from './SetupHabits.module.css';
 
 
-let snackBars = [];
-
 class SetupHabits extends Component {
   state={
-    habits: [
-    
-    ],
-    habitsWaitingForDeletion:[
-
-    ],
-    snackbarDistance: 50,
+    habits: [],
+    habitsWaitingForDeletion:[],
   }
 
-  //Event handlers
+  //Trigger the call for getting existing habits from the server
   componentDidMount(){
   this.GEThabits();
   }
+
+  //Get existing habits from the server and set them to the state
+  GEThabits = () => {
+    const habits = firebase.database().ref('/habits');
+    habits.on('value', (snapshot) =>{
+      const data = snapshot.val();
+      if(data !== null){
+        this.setState({habits: Object.values(data)});
+      }
+    })
+  };
+
+  //Delete a new habit from the server
+  DELETEhabit = (habitId) => {
+    setTimeout(
+      ()=>{
+        //Is the habit still waiting for deletion?
+        if(this.state.habitsWaitingForDeletion.findIndex(habit=>habit.id===habitId) !==-1){
+          //Remove the habit from the habits waiting for deletion
+          let habitsWaitingForDeletion = [...this.state.habitsWaitingForDeletion];
+          let updateHabitsWaitingForDeletion = habitsWaitingForDeletion.filter(element=>{
+            return element.id !== habitId;
+          })
+          this.setState({habitsWaitingForDeletion:updateHabitsWaitingForDeletion});
+
+          //Delete the habit from the server db
+          return firebase.database().ref(`/habits/${habitId}`).remove();
+          console.log('Deleted from the database.');
+        } else{
+          console.log('The habit was not waiting for deletion anymore');
+        }
+      },5000);
+  };
   
-  //Interaction with the firebase database
-  POSThabit= (newHabit)=> {
+
+  //Handlers
+  addHabitHandler = (newHabit) => {
+    //Update the state
+    // let updatedHabits = [...this.state.habits];
+    // updatedHabits.push(newHabit);
+    // console.log(updatedHabits);
+    //this.setState({habits: updatedHabits});
+
+    //Submit the habit to database
     firebase.database().ref('habits/' + newHabit.id).set({
       id : newHabit.id,
       creationDate: newHabit.creationDate,
@@ -49,49 +83,7 @@ class SetupHabits extends Component {
       }
     }
     );
-  };
 
-  GEThabits = () => {
-    const habits = firebase.database().ref('/habits');
-    habits.on('value', (snapshot) =>{
-      const data = snapshot.val();
-
-      if(data !== null){
-        this.setState({habits: Object.values(data)});
-      }
-    })
-  };
-
-
-
-  DELETEhabit = (habitId) => {
-    setTimeout(
-      ()=>{
-        //Is the habit still waiting for deletion?
-        if(this.state.habitsWaitingForDeletion.findIndex(habit=>habit.id===habitId) !==-1){
-          //Remove the habit from the habits waiting for deletion
-          let habitsWaitingForDeletion = [...this.state.habitsWaitingForDeletion];
-          let updateHabitsWaitingForDeletion = habitsWaitingForDeletion.filter(element=>{
-            return element.id !== habitId;
-          })
-          this.setState({habitsWaitingForDeletion:updateHabitsWaitingForDeletion});
-
-          //Delete the habit from the server db
-          //return firebase.database().ref(`/habits/${habitId}`).remove();
-          console.log('Deleted from the database.');
-        } else{
-          console.log('The habit was not waiting for deletion anymore');
-        }
-      },5000);
-  };
-  
-
-  //Handlers
-  addHabitHandler = (newHabit) => {
-    let updatedHabits = [...this.state.habits];
-    updatedHabits.push(newHabit);
-    this.setState({habits: updatedHabits});
-    this.POSThabit(newHabit);
   }
 
   deleteHabitHandler = (clickedHabit) => {
