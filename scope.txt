@@ -20,8 +20,8 @@ DONE- Today
 DONE- Setup 
 
 Technical 
-- show a snack bar if a habit gets deleted + UNDO option
-- the snackbars should autodisappear
+DONE- show a snack bar if a habit gets deleted + UNDO option
+DONE- the snackbars should autodisappear
 
 -------------------------------------------------------
 

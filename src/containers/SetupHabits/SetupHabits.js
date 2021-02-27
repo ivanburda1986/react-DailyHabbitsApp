@@ -15,7 +15,8 @@ class SetupHabits extends Component {
   state={
     habits: [],
     habitsWaitingForDeletion:[],
-    snackbars:[]
+    snackbars:[],
+    snackbarDisplayTime: 5000 //ms
   }
 
   //Trigger the call for getting existing habits from the server
@@ -115,7 +116,7 @@ class SetupHabits extends Component {
           //The habit deletion has been reverted so no deletion from the serer will be performed
           console.log('The habit was not waiting for deletion anymore');
         }
-      }, 5000);
+      }, this.state.snackbarDisplayTime);
   }
 
   //Revert deletion of a habit
@@ -159,7 +160,14 @@ class SetupHabits extends Component {
     updatedSnackbars.push(
       {
         id: habit.id,
-        element: <Snackbar id={habit.id} key={habit.id} deletedHabitName={habit.title} bottomDistance={snackbarPosition} delete={this.deleteSnackbar} clicked={()=>this.undoHabitDeletionHandler(habit.id)}/>
+        element: <Snackbar 
+                    id={habit.id} 
+                    key={habit.id} 
+                    bottomDistance={snackbarPosition} 
+                    deletedHabitName={habit.title}
+                    displayTime = {this.state.snackbarDisplayTime}
+                    delete={this.deleteSnackbar} 
+                    clicked={()=>this.undoHabitDeletionHandler(habit.id)} />
       });
     this.setState({snackbars:updatedSnackbars});
     console.log("A snackbar has been created");
@@ -174,7 +182,6 @@ class SetupHabits extends Component {
     this.setState({snackbars:updatedSnackbars});
     console.log("A snackbar has been deleted");
   }
-
 
   render() {
 

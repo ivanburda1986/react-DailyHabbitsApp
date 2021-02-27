@@ -21,13 +21,13 @@ class TodayHabits extends Component{
     ]
   }
 
-  //Event handlers
+  //Trigger the call for getting existing habits from the server
   componentDidMount(){
-    this.GEThabits();
-    
+    this.ListenToHabits();
     }
 
-  GEThabits = () => {
+  //Get existing habits from the server - listening
+  ListenToHabits = () => {
     const habits = firebase.database().ref('/habits');
     habits.on('value', (snapshot) =>{
       const data = snapshot.val();
@@ -39,11 +39,10 @@ class TodayHabits extends Component{
       //Trigger streak evaluation
       this.streakHandler();
     })
-    
   };
   
+  //Update a habit on the server
   PUThabit = (habitId, newData) => {
-
     return firebase.database().ref(`/habits/${habitId}`).update(newData,
       (error) => {
         if (error){
@@ -55,33 +54,39 @@ class TodayHabits extends Component{
     );
   };
 
-
+  //Evaluates whether a habit based on its completion timestamp has been completed today
   completedToday = (completionTimestamp) =>{
     let today = new Date();
-    let todayMidnight = today.setHours(0,0,0,0);
-    let milisecondsSinceMidnight = Date.now() - todayMidnight;
-
-    return Date.now() - completionTimestamp < milisecondsSinceMidnight;
+    let todayBegining = today.setHours(0,0,0,0);
+    let millisecondsSinceTodayBeginning = Date.now() - todayBegining;
+    
+    //Returning true means that the habit's completion state has been updated today
+    return (Date.now() - completionTimestamp) < millisecondsSinceTodayBeginning;
   }
 
+  //Toggles today's completion of a habit based on user's click
+  habitCompletionClickHandler = (habitId) =>{
+    //Copies habits from the state to avoid its mutation
+    let updatedTodayHabits = [...this.state.todayHabits];
+    let habitToUpdate = updatedTodayHabits.filter(habit=>{return habit.id === habitId});
+    habitToUpdate = new Object(...habitToUpdate);
 
-  completionClickHandler = (todayHabitId) =>{
-    //Making sure I do not update the state immediately
-    const todayHabits = [...this.state.todayHabits];
-    console.log(todayHabits);
-    const myHabit = todayHabits.filter(habit=>{return habit.id === todayHabitId});
-    const habitToUpdate = new Object(...myHabit);
-
-    //Set the completion state depending on whether the previous update was done today or yesterday
+    //If the habit's completion state has already been updated today then the click will result in: 
     if(this.completedToday(habitToUpdate.completed)){
-      habitToUpdate.completed = 0;
-      habitToUpdate.streak >0 ? habitToUpdate.streak-= 1 : habitToUpdate.streak= 0;
+      habitToUpdate.completed = 0; //setting the habit as completed before today
+      habitToUpdate.streak > 0 ? habitToUpdate.streak -= 1 : habitToUpdate.streak = 0; //decreasing the streak count
     } else{
+      //If the habit's completion has not been updated today yet then the click will result in:
       habitToUpdate.completed = Date.now();
-      habitToUpdate.streak+= 1;
+      habitToUpdate.streak += 1;
     }
 
-    this.PUThabit(todayHabitId, habitToUpdate);
+    //Update the habit's completion in the state
+    updatedTodayHabits = updatedTodayHabits.filter(habit=>{return habit.id !== habitId});
+    updatedTodayHabits.push(habitToUpdate);
+    this.setState({todayHabits:updatedTodayHabits});
+    //Submit the habit's completion to the database
+    this.PUThabit(habitId, habitToUpdate);
   }
   
   streakHandler = () =>{
@@ -122,7 +127,7 @@ class TodayHabits extends Component{
         subtitle={habit.subtitle} 
         streak={habit.streak} 
         completed={this.completedToday(habit.completed)} 
-        clicked={()=>this.completionClickHandler(habit.id)}
+        clicked={()=>this.habitCompletionClickHandler(habit.id)}
       />
     ));
     //No habits yet
