@@ -205,7 +205,7 @@ class SetupHabits extends Component {
 
           {/* Individual habits */}
           {this.state.habits.map(habit=>(
-            <Habit key={habit.id} icon={habit.icon} title={habit.title} subtitle={habit.subtitle} streak={habit.streak} habitId={habit.id} clicked={()=>this.deleteHabitHandler(habit.id)}/>
+            <Habit age={habit.orderingParameter} key={habit.id} icon={habit.icon} title={habit.title} subtitle={habit.subtitle} streak={habit.streak} habitId={habit.id} clicked={()=>this.deleteHabitHandler(habit.id)}/>
           ))}
         </div>
 

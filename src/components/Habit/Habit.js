@@ -18,11 +18,11 @@ const habit = (props) =>{
   };
 
   //Start the fading-out effect
-  setTimeout(function(){
-    document.getElementById(props.habitId).classList.add(classes.Shine);
-  }, 1);
-  
-  
+    setTimeout(function(){
+        document.getElementById(props.habitId).classList.add(classes.Shine);
+    }, 1);
+
+
   return(
   <div id={props.habitId} className={habitClasses.join(' ')} data-id={props.habitId}>
     <div className={classes.HabitLeft}>
