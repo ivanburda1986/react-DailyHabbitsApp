@@ -13,7 +13,6 @@ import database from '../../firebase';
 import classes from './TodayHabits.module.css';
 
 
-
 class TodayHabits extends Component{
   state = {
     todayHabits: [
@@ -21,25 +20,23 @@ class TodayHabits extends Component{
     ]
   }
 
-  //Trigger the call for getting existing habits from the server
   componentDidMount(){
-    this.ListenToHabits();
-    }
+    this.GEThabits();
+  }
 
-  //Get existing habits from the server - listening
-  ListenToHabits = () => {
-    const habits = firebase.database().ref('/habits');
-    habits.on('value', (snapshot) =>{
-      const data = snapshot.val();
-
-      if(data !== null){
-        this.setState({todayHabits: Object.values(data)});
+  //Get existing habits from the server - a single event request (no listening)
+  GEThabits = () =>{
+    firebase.database().ref('/habits').once('value').then((snapshot)=>{
+      if(snapshot.exists()){
+        this.setState({todayHabits: Object.values(snapshot.val())});
+        this.streakHandler();
+      } else{
+        console.log("No data avaiable");
       }
-
-      //Trigger streak evaluation
-      this.streakHandler();
-    })
-  };
+    }).catch(function(error){
+      console.log(error);
+    });
+  }
   
   //Update a habit on the server
   PUThabit = (habitId, newData) => {
@@ -85,39 +82,63 @@ class TodayHabits extends Component{
     updatedTodayHabits = updatedTodayHabits.filter(habit=>{return habit.id !== habitId});
     updatedTodayHabits.push(habitToUpdate);
     this.setState({todayHabits:updatedTodayHabits});
+
     //Submit the habit's completion to the database
     this.PUThabit(habitId, habitToUpdate);
   }
   
+  //Evaluates whether streak of all habits should be kept or reset. Since I have no server backend to do this, I trigger this evalution on the FE and then updated the server data
   streakHandler = () =>{
-    //Returns number of hours since the habit creation
-    const daysSinceCreation = (habitCreationDate) =>{
+    //Returns number of hours since the habit creation timestamp was (re)set
+    const hoursSinceHabitCreation = (habitCreationDate, habitTitle) =>{
       let today = new Date();
-      let todayMidnight = today.setHours(0,0,0,0);
-      todayMidnight = todayMidnight/1000;
-      let difference = ((todayMidnight - habitCreationDate));
-      let hours = parseFloat((difference / 3600).toFixed(2));
-      console.log("Hodin:" + hours);
-      return hours;
+      let todayBegining = today.setHours(0,0,0,0);
+      console.log(`==${habitTitle}==`);
+      console.log("Today's beginning: " + todayBegining);
+      console.log("Habit creation: " + habitCreationDate);
+      let difference = ((todayBegining - habitCreationDate));
+      console.log("Today's begining - habit creation: " + difference);
+      let habitCreationInHoursBeforeTodayBeginning = parseFloat((difference / 3600000).toFixed(2));
+      console.log(`Hours the habit was created before today's beginning:  ${habitCreationInHoursBeforeTodayBeginning}`);
+
+      return habitCreationInHoursBeforeTodayBeginning;
     }
 
-    //Compare a habit age to the number of streaks is has. If the difference is higher than 48 then resets the streak
-    const todayHabits = [...this.state.todayHabits];
-    const habitWithExpiredStreak = todayHabits.filter(habit=>{
-      return daysSinceCreation(habit.creationDate) > habit.streak*24;
+    //If the habit age in [hrs] is greater than its number of streaks*24hrs then it means the habit has not been completed yesterday -> reset its streak to 0 (in the data copy)
+    let updatedTodayHabits = [...this.state.todayHabits];
+
+    let habitsWithoutExpiredStreak = updatedTodayHabits.filter(habit=>{
+      return hoursSinceHabitCreation(habit.creationDate, habit.title) <= habit.streak * 24; //24 hrs = 1 day
     });
-    habitWithExpiredStreak.forEach(habit=>{
+
+    let habitsWithExpiredStreak = updatedTodayHabits.filter(habit=>{
+      console.log(`Hours since creation of "${habit.title}": ${hoursSinceHabitCreation(habit.creationDate)}`);
+      console.log("-------------------------");
+      return hoursSinceHabitCreation(habit.creationDate, habit.title) > habit.streak * 24; //24 hrs = 1 day
+    });
+
+    //For habits with expired streak: Set the streak to 0; Re-set the habit's creation date to today
+    habitsWithExpiredStreak.forEach(habit=>{
+      let today = new Date();
+      let creationDate = today.setHours(0,0,0,0);
+      habit.creationDate = creationDate;
       habit.streak = 0;
       habit.completed = 0;
-      let date = new Date();
-      let creationDate = date.setHours(0,0,0,0);
-      habit.creationDate = creationDate;
+    })
+
+    //Update the state
+    updatedTodayHabits = [];
+    updatedTodayHabits.push(...habitsWithoutExpiredStreak, ...habitsWithExpiredStreak);
+    this.setState({todayHabits:updatedTodayHabits});
+
+    //update the server data
+    habitsWithExpiredStreak.forEach(habit=>{
       this.PUThabit(habit.id, habit);
     })
   }
 
   render(){
-
+    
     //Today habits
     let todayHabits = this.state.todayHabits.map(habit=>(
       <TodayHabit 
