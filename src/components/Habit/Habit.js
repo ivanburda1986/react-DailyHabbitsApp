@@ -7,16 +7,24 @@ import classes from './Habit.module.css';
 import deletionIcon from '../../media/icons/delete.svg';
 
 
+
+
 const habit = (props) =>{
+
   //Evaluation component classes  
   const habitClasses = [classes.Habit];
   if(props.completed){
     habitClasses.push(classes.Completed);
   };
+
+  //Start the fading-out effect
+  setTimeout(function(){
+    document.getElementById(props.habitId).classList.add(classes.Shine);
+  }, 1);
   
   
   return(
-  <div className={habitClasses.join(' ')} data-id={props.habitId}>
+  <div id={props.habitId} className={habitClasses.join(' ')} data-id={props.habitId}>
     <div className={classes.HabitLeft}>
       <img src={props.icon}/>
     </div>

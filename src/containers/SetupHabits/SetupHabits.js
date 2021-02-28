@@ -27,7 +27,7 @@ class SetupHabits extends Component {
   //Gives the array with habits a stable order
   sortHabits(habits){
     let sortedHabits = Object.values(habits).sort((a,b)=>{
-      if(a.title > b.title){
+      if(a.orderingParameter > b.orderingParameter){
         return 1;
       } else {
         return -1;
@@ -65,13 +65,13 @@ class SetupHabits extends Component {
     //Update the state
       let updatedHabits = [...this.state.habits];
       updatedHabits.push(newHabit);
-      console.log(updatedHabits);
       this.setState({habits: this.sortHabits(updatedHabits)});
 
     //Submit the habit to database
     firebase.database().ref('habits/' + newHabit.id).set({
       id : newHabit.id,
       creationDate: newHabit.creationDate,
+      orderingParameter: Date.now(),
       icon : newHabit.icon,
       title : newHabit.title,
       subtitle : newHabit.subtitle,

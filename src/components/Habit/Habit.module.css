@@ -4,13 +4,19 @@
   align-items: center;
   box-sizing: border-box;
   justify-content: space-between;
-  background-color: rgba(173, 169, 169, 0.7);
+  background-color: rgba(238, 224, 32, 0.856);
   color: #fff;
   border-radius: 10px;
   width: 90%;
   max-width: 450px;
   height: 100px;
   margin: 5px;
+
+  transition: all 2s ease-out;
+}
+
+.Shine{
+  background-color: rgba(173, 169, 169, 0.7);
 }
 
 .HabitLeft{

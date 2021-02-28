@@ -22,11 +22,15 @@ DONE- Setup
 Technical 
 DONE- show a snack bar if a habit gets deleted + UNDO option
 DONE- the snackbars should autodisappear
+- add a validation that two habits of the same title cannot be created
+- add more visual effects 
+- improve the styling
 
 
 Fix: 
 Array items order issue
 https://stackoverflow.com/questions/54828889/react-changing-value-of-object-change-order-of-array
+Sorting of array items alphabetically: https://flaviocopes.com/how-to-sort-array-of-objects-by-property-javascript/
 
 -------------------------------------------------------
 

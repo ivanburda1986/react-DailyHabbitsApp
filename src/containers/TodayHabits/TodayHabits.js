@@ -27,7 +27,7 @@ class TodayHabits extends Component{
   //Gives the array with habits a stable order
   sortHabits(habits){
     let sortedHabits = Object.values(habits).sort((a,b)=>{
-      if(a.title > b.title){
+      if(a.orderingParameter > b.orderingParameter){
         return 1;
       } else {
         return -1;
@@ -41,7 +41,7 @@ class TodayHabits extends Component{
     firebase.database().ref('/habits').once('value').then((snapshot)=>{
       if(snapshot.exists()){
         this.setState({todayHabits: this.sortHabits(snapshot.val())});
-        
+
         this.streakHandler();
       } else{
         console.log("No data avaiable");
