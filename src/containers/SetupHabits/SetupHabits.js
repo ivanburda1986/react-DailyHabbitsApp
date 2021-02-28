@@ -24,13 +24,25 @@ class SetupHabits extends Component {
   this.GEThabits();
   }
 
+  //Gives the array with habits a stable order
+  sortHabits(habits){
+    let sortedHabits = Object.values(habits).sort((a,b)=>{
+      if(a.title > b.title){
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+    return sortedHabits;
+  }
+
   //Get existing habits from the server - listening
   ListenToHabits = () => {
     const habits = firebase.database().ref('/habits');
     habits.on('value', (snapshot) =>{
       const data = snapshot.val();
       if(data !== null){
-        this.setState({habits: Object.values(data)});
+        this.setState({habits: this.sortHabits(data)});
       }
     })
   };
@@ -39,7 +51,7 @@ class SetupHabits extends Component {
   GEThabits = () =>{
     firebase.database().ref('/habits').once('value').then((snapshot)=>{
       if(snapshot.exists()){
-        this.setState({habits: Object.values(snapshot.val())});
+        this.setState({habits: this.sortHabits(snapshot.val())});
       } else{
         console.log("No data avaiable");
       }
@@ -54,7 +66,7 @@ class SetupHabits extends Component {
       let updatedHabits = [...this.state.habits];
       updatedHabits.push(newHabit);
       console.log(updatedHabits);
-      this.setState({habits: updatedHabits});
+      this.setState({habits: this.sortHabits(updatedHabits)});
 
     //Submit the habit to database
     firebase.database().ref('habits/' + newHabit.id).set({
@@ -83,7 +95,7 @@ class SetupHabits extends Component {
       updatedHabits = updatedHabits.filter(element=>{
         return element.id !== habitId;
       })
-      this.setState({habits:updatedHabits});
+      this.setState({habits:this.sortHabits(updatedHabits)});
 
     //Park the data of deletion-candidate habit so that user can undo the deletion
     let habitToDelete = this.state.habits.filter(element=>{
@@ -131,7 +143,7 @@ class SetupHabits extends Component {
         return element.id === habitId;
       })
       habits.push(...habitToBeRestored);
-      this.setState({habits: habits});
+      this.setState({habits: this.sortHabits(habits)});
 
       //Remove the habit from the habits waiting for deletion
       let updateHabitsWaitingForDeletion = habitsWaitingForDeletion.filter(element=>{

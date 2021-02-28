@@ -23,6 +23,11 @@ Technical
 DONE- show a snack bar if a habit gets deleted + UNDO option
 DONE- the snackbars should autodisappear
 
+
+Fix: 
+Array items order issue
+https://stackoverflow.com/questions/54828889/react-changing-value-of-object-change-order-of-array
+
 -------------------------------------------------------
 
 Iteration 2

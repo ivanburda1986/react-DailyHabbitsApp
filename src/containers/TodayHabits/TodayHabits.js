@@ -24,11 +24,24 @@ class TodayHabits extends Component{
     this.GEThabits();
   }
 
+  //Gives the array with habits a stable order
+  sortHabits(habits){
+    let sortedHabits = Object.values(habits).sort((a,b)=>{
+      if(a.title > b.title){
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+    return sortedHabits;
+  }
+
   //Get existing habits from the server - a single event request (no listening)
   GEThabits = () =>{
     firebase.database().ref('/habits').once('value').then((snapshot)=>{
       if(snapshot.exists()){
-        this.setState({todayHabits: Object.values(snapshot.val())});
+        this.setState({todayHabits: this.sortHabits(snapshot.val())});
+        
         this.streakHandler();
       } else{
         console.log("No data avaiable");
@@ -81,7 +94,7 @@ class TodayHabits extends Component{
     //Update the habit's completion in the state
     updatedTodayHabits = updatedTodayHabits.filter(habit=>{return habit.id !== habitId});
     updatedTodayHabits.push(habitToUpdate);
-    this.setState({todayHabits:updatedTodayHabits});
+    this.setState({todayHabits:this.sortHabits(updatedTodayHabits)});
 
     //Submit the habit's completion to the database
     this.PUThabit(habitId, habitToUpdate);
@@ -129,7 +142,7 @@ class TodayHabits extends Component{
     //Update the state
     updatedTodayHabits = [];
     updatedTodayHabits.push(...habitsWithoutExpiredStreak, ...habitsWithExpiredStreak);
-    this.setState({todayHabits:updatedTodayHabits});
+    this.setState({todayHabits: this.sortHabits(updatedTodayHabits)});
 
     //update the server data
     habitsWithExpiredStreak.forEach(habit=>{
