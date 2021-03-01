@@ -25,8 +25,8 @@ DONE- the snackbars should autodisappear
 DONE- make sure the ordering based on the orderingParameter works correctly also for habits of an identical name
 DONE - fix reloading of the creation visual effect when the user return to the setup page. Maybe the trigger to start the animation should be controlle by the "Create" button
 DONE- prevent the user to return to Today as long as there are some snackbars and therefore habit deletion is pending - or alternatively reload the Todays page once the last postponed deletion finished
-- add more visual effects 
-- improve the styling
+DONE- add more visual effects 
+DONE- improve the styling
 
 Fix: 
 Array items order issue

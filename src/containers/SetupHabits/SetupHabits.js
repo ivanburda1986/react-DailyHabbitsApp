@@ -16,7 +16,7 @@ class SetupHabits extends Component {
     habits: [],
     habitsWaitingForDeletion:[],
     snackbars:[],
-    snackbarDisplayTime: 3000 //ms
+    snackbarDisplayTime: 3500 //ms
   }
 
   //Trigger the call for getting existing habits from the server
@@ -27,7 +27,7 @@ class SetupHabits extends Component {
   //Gives the array with habits a stable order
   sortHabits(habits){
     let sortedHabits = Object.values(habits).sort((a,b)=>{
-      if(a.orderingParameter > b.orderingParameter){
+      if(a.orderingParameter < b.orderingParameter){
         return 1;
       } else {
         return -1;

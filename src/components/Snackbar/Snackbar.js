@@ -15,7 +15,7 @@ const Snackbar = (props) =>{
   }, props.displayTime);
 
   return(
-    <div id={props.id} className={classes.Snackbar} style={{bottom: `${props.bottomDistance}px`}}>
+    <div id={props.id} className={classes.Snackbar} style={{bottom: `${props.bottomDistance}px`} }>
       <p>"{props.deletedHabitName}" habit has been deleted.</p>
       <button onClick={props.clicked}>UNDO</button>
     </div>

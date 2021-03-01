@@ -27,7 +27,7 @@ class TodayHabits extends Component{
   //Gives the array with habits a stable order
   sortHabits(habits){
     let sortedHabits = Object.values(habits).sort((a,b)=>{
-      if(a.orderingParameter > b.orderingParameter){
+      if(a.orderingParameter < b.orderingParameter){
         return 1;
       } else {
         return -1;

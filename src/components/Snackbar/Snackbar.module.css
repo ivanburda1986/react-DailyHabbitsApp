@@ -14,7 +14,7 @@
   padding: 0px 10px;
   border-radius: 5px;
   box-shadow: 2px 2px 2px #3C5973;
-  transition: opacity 3s ease-out;
+  transition: opacity 3.5s ease-out;
 }
 
 .Snackbar p{
@@ -35,4 +35,12 @@
 
 .Snackbar.Disappear{
   opacity: 0;
+}
+
+@media(max-width: 450px){
+  .Snackbar{
+    width: 90vw;
+    height: 80px;
+    background-color:#5b9fa6;
+  }
 }
