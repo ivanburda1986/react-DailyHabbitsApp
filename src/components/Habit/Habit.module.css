@@ -19,7 +19,7 @@
 }
 
 @keyframes shine{
-  0%   {background-color:rgba(238, 224, 32, 0.856);}
+  0%   {background-color:rgba(168, 230, 86, 0.8)}
   100% {background-color:rgba(173, 169, 169, 0.7); }
 }
 
@@ -111,11 +111,11 @@ background-color: rgba(255,255,255,0.8);
 .HabitDeletionBtn img{
   width: 100%;
   height: auto;
-  filter: invert(20%) opacity(70%);
+  filter: invert(20%) opacity(80%);
 }
 
 .HabitDeletionBtn img:hover{
-  filter:  opacity(90%);
+  filter:  opacity(99%);
 }
 
 
