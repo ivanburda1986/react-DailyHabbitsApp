@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 //Styles
 import classes from './Habit.module.css';
@@ -9,43 +9,53 @@ import deletionIcon from '../../media/icons/delete.svg';
 
 
 
-const habit = (props) =>{
+class habit extends Component{
+  state = {
+    habitClasses: [classes.Habit]
+  }
 
-  //Evaluation component classes  
-  const habitClasses = [classes.Habit];
-  if(props.completed){
-    habitClasses.push(classes.Completed);
-  };
-
-  //Start the fading-out effect
-    setTimeout(function(){
-        document.getElementById(props.habitId).classList.add(classes.Shine);
+  //Makes sure the creation animation is played only after the creation, not always when the page re-renders
+  componentDidMount(){
+    if(Date.now() - this.props.age < 2000){
+      setTimeout(()=>{
+        const habitClasses = [...this.state.habitClasses];
+        habitClasses.push(classes.Shine);
+        this.setState({habitClasses:habitClasses});
     }, 1);
+    }
+  }
 
+  render(){
+    if(this.props.completed){
+      const habitClasses = [...this.state.habitClasses];
+      habitClasses.push(classes.Completed);
+      this.setState({habitClasses:habitClasses});
+    };
 
-  return(
-  <div id={props.habitId} className={habitClasses.join(' ')} data-id={props.habitId}>
-    <div className={classes.HabitLeft}>
-      <img src={props.icon}/>
-    </div>
-    <div className={classes.HabitCenter}>
-      <p className={classes.Title}>{props.title}</p>
-      <p className={classes.Subtitle}>{props.subtitle}</p>
-    </div>
-    <div className={classes.HabitRight}>
-      <div className={classes.Streak}>
-        {props.streak}
+    return(
+      <div id={this.props.habitId} className={this.state.habitClasses.join(' ')} data-id={this.props.habitId}>
+        <div className={classes.HabitLeft}>
+          <img src={this.props.icon}/>
+        </div>
+        <div className={classes.HabitCenter}>
+          <p className={classes.Title}>{this.props.title}</p>
+          <p className={classes.Subtitle}>{this.props.subtitle}</p>
+        </div>
+        <div className={classes.HabitRight}>
+          <div className={classes.Streak}>
+            {this.props.streak}
+          </div>
+          <button 
+            className={classes.HabitDeletionBtn}
+            onClick={this.props.clicked}
+            >
+              <img src={deletionIcon}/>
+            </button>
+        </div>
       </div>
-      <button 
-        className={classes.HabitDeletionBtn}
-        onClick={props.clicked}
-        >
-          <img src={deletionIcon}/>
-        </button>
-    </div>
-  </div>
-  );
-  
-  };
-  
+      );
+  }
+
+}
+
   export default habit;

@@ -71,7 +71,7 @@ class SetupHabits extends Component {
     firebase.database().ref('habits/' + newHabit.id).set({
       id : newHabit.id,
       creationDate: newHabit.creationDate,
-      orderingParameter: Date.now(),
+      orderingParameter: newHabit.orderingParameter,
       icon : newHabit.icon,
       title : newHabit.title,
       subtitle : newHabit.subtitle,

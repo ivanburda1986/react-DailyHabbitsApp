@@ -57,6 +57,7 @@ class HabitTemplate extends Component {
     const newHabit = {
       id : uuidv4(),
       creationDate: creationDate,
+      orderingParameter: Date.now(),
       icon : this.state.selectedIconImage,
       title : document.getElementById("newHabitTitleInput").value,
       subtitle : document.getElementById("newHabitDescriptionInput").value,

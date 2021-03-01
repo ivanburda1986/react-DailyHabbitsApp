@@ -24,7 +24,7 @@ DONE- show a snack bar if a habit gets deleted + UNDO option
 DONE- the snackbars should autodisappear
 - make sure the ordering based on the orderingParameter works correctly also for habits of an identical name
 - add more visual effects 
-- fix reloading of the creation visual effect when the user return to the setup page. Maybe the trigger to start the animation should be controlle by the "Create" button
+DONE - fix reloading of the creation visual effect when the user return to the setup page. Maybe the trigger to start the animation should be controlle by the "Create" button
 - improve the styling
 - prevent the user to return to Today as long as there are some snackbars and therefore habit deletion is pending - or alternatively reload the Todays page once the last postponed deletion finished
 
