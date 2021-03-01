@@ -16,7 +16,7 @@ class habit extends Component{
 
   //Makes sure the creation animation is played only after the creation, not always when the page re-renders
   componentDidMount(){
-    if(Date.now() - this.props.age < 2000){
+    if(Date.now() - this.props.age < 1000){
       setTimeout(()=>{
         const habitClasses = [...this.state.habitClasses];
         habitClasses.push(classes.Shine);

@@ -16,7 +16,7 @@ class SetupHabits extends Component {
     habits: [],
     habitsWaitingForDeletion:[],
     snackbars:[],
-    snackbarDisplayTime: 5000 //ms
+    snackbarDisplayTime: 2500 //ms
   }
 
   //Trigger the call for getting existing habits from the server
