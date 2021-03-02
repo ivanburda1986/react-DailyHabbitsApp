@@ -3,10 +3,14 @@ ROADMAP
 
 MVP
 Today page 
+DONE- show a list of existing habits
+DONE- support tick-untick for completion of the habits
 DONE- show the current date
-DONE- no habit yet => create the first one 
+DONE- no habit yet => create the first one
+DONE- management of elapsed habit streak
 
 Setup page 
+DONE-
 DONE- more habit icons 
 DONE- a generic icon suitable for any habit 
 DONE- Create button validation 
