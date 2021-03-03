@@ -3,14 +3,19 @@ ROADMAP
 
 MVP
 Today page 
+DONE- show a list of existing habits
+DONE- support tick-untick for completion of the habits
 DONE- show the current date
-DONE- no habit yet => create the first one 
+DONE- no habit yet => create the first one
+DONE- management of elapsed habit streak
 
 Setup page 
+DONE- A form for creating a new habit
 DONE- more habit icons 
 DONE- a generic icon suitable for any habit 
 DONE- Create button validation 
 DONE- show the streak to make the user aware they may be deleting a habit with a streak 
+DONE - show a snackbar with an UNDO option when a habit gets deleted by the user
 
 Header 
 DONE- make sure the header changes for the Today/Setup routes 
