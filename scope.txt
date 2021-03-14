@@ -41,6 +41,8 @@ Sorting of array items alphabetically: https://flaviocopes.com/how-to-sort-array
 -------------------------------------------------------
 
 Iteration 2
+- PropTypes validation
+- Dark/Light mode relying on the React Context
 - Setup a streak goal 
 - Hall of fame for goals where the streak was reached 
 - Individual goals in the HOF are deletable + Delete all 
