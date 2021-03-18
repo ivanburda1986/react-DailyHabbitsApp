@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classes from './OverlayMenu.module.css';
 
 
@@ -23,6 +24,11 @@ const OverlayMenu = (props) =>{
       </div>
     </React.Fragment>
   );
+}
+
+OverlayMenu.propTypes = {
+  open: PropTypes.bool.isRequired,
+  closed: PropTypes.func.isRequired,
 }
 
 export default OverlayMenu;

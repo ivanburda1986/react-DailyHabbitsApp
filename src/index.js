@@ -21,3 +21,12 @@ ReactDOM.render(app,
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+
+// getMyProps = ()=>{
+//   const keys = Object.keys(this.props).map(entry=>entry);
+//   const values = Object.values(this.props).map(entry=>entry);
+//   let results = {};
+//   keys.forEach((key, index)=>results[key] = typeof values[index]);
+//   return results;
+// }

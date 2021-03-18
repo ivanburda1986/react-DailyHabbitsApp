@@ -42,9 +42,10 @@ Sorting of array items alphabetically: https://flaviocopes.com/how-to-sort-array
 
 Iteration 2
 DONE- 404 handling
-- PropTypes validation
+DONE- PropTypes validation
 - Dark/Light mode relying on the React Context
 - Dynamic loading
+
 - Setup a streak goal 
 - Hall of fame for goals where the streak was reached 
 - Individual goals in the HOF are deletable + Delete all 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import classes from './TodayHabit.module.css';
 
@@ -8,18 +9,13 @@ import checkmarkCompleted from '../../media/icons/checkmarkCompleted.png';
 import streakflame from '../../media/icons/streakflame.svg';
 
 
-
-
-
-const todayHabit = (props) =>{
-
+const TodayHabit = (props) =>{
 //Evaluation component classes  
 const habitClasses = [classes.Habbit];
 
 if(props.completed){
   habitClasses.push(classes.Completed);
 };
-
 
 return(
 <div className={habitClasses.join(' ')}>
@@ -46,4 +42,13 @@ return(
 
 };
 
-export default todayHabit;
+TodayHabit.propTypes = {
+  clicked: PropTypes.func.isRequired,
+  completed: PropTypes.bool.isRequired,
+  icon: PropTypes.string.isRequired,
+  streak: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string.isRequired,
+}
+
+export default TodayHabit;

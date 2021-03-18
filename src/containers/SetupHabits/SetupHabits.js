@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 //Firebase
 import firebase from "firebase";
@@ -17,6 +18,12 @@ class SetupHabits extends Component {
     habitsWaitingForDeletion:[],
     snackbars:[],
     snackbarDisplayTime: 3500 //ms
+  }
+
+  static propTypes = {
+    history: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired
   }
 
   //Trigger the call for getting existing habits from the server

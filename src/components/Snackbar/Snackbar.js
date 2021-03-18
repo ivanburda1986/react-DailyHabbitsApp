@@ -1,9 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import classes from './Snackbar.module.css';
 
 const Snackbar = (props) =>{
-
   //Start the fading-out effect
   setTimeout(function(){
     document.getElementById(props.id).classList.add(classes.Disappear);
@@ -20,7 +20,15 @@ const Snackbar = (props) =>{
       <button onClick={props.clicked}>UNDO</button>
     </div>
   );
+}
 
+Snackbar.propTypes = {
+ bottomDistance: PropTypes.number.isRequired,
+ clicked: PropTypes.func.isRequired,
+ delete: PropTypes.func.isRequired,
+ deletedHabitName: PropTypes.string.isRequired,
+ displayTime: PropTypes.number.isRequired,
+ id: PropTypes.string.isRequired,
 }
 
 export default Snackbar;

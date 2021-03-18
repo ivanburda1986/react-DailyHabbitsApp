@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 //Own components
 import TodayHabit from '../../components/TodayHabit/TodayHabit';
@@ -18,6 +19,12 @@ class TodayHabits extends Component{
     todayHabits: [
       
     ]
+  }
+
+  static propTypes = {
+    history: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired
   }
 
   componentDidMount(){

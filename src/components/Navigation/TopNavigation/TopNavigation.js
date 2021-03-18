@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {useLocation} from 'react-router-dom';
 
 import classes from './TopNavigation.module.css';
@@ -33,6 +34,10 @@ const topNavigation = (props) =>{
       </div>
     </div>
   );
+}
+
+topNavigation.propTypes = {
+  clicked: PropTypes.func.isRequired
 }
 
 export default topNavigation;

@@ -1,10 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import classes from './Button.module.css';
 
 
-const button = (props) =>{
-
+const Button = (props) =>{
   //Dynamic classes
   const buttonClasses = [classes.Button];
   if(props.disabled){
@@ -20,7 +20,11 @@ const button = (props) =>{
       {props.buttonTitle}
     </button>
   );
-
 }
 
-export default button;
+Button.propTypes = {
+  buttonTitle: PropTypes.string.isRequired 
+}
+
+
+export default Button;
