@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, BrowserRouter, Redirect} from 'react-router-dom';
 
 
 import Layout from './hoc/Layout/Layout';
@@ -18,6 +18,7 @@ class App extends Component {
             <Route path="/today" exact component={TodayHabits}/>
             <Route path="/setup" exact component={SetupHabits}/>
             <Route path="/" exact component={TodayHabits}/>
+            <Redirect from="*" to="/"/>
           </Switch>
         </Layout>
       </div>

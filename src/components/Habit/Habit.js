@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 //Styles
 import classes from './Habit.module.css';
@@ -7,11 +8,18 @@ import classes from './Habit.module.css';
 import deletionIcon from '../../media/icons/delete.svg';
 
 
-
-
-class habit extends Component{
+class Habit extends Component{
   state = {
     habitClasses: [classes.Habit]
+  }
+
+  static propTypes = {
+    age: PropTypes.number.isRequired,
+    clicked: PropTypes.func.isRequired,
+    habitId: PropTypes.string.isRequired,
+    icon: PropTypes.string.isRequired,
+    subtitle: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
   }
 
   //Makes sure the creation animation is played only after the creation, not always when the page re-renders
@@ -23,6 +31,7 @@ class habit extends Component{
         this.setState({habitClasses:habitClasses});
     }, 1);
     }
+    
   }
 
   render(){
@@ -58,4 +67,4 @@ class habit extends Component{
 
 }
 
-  export default habit;
+  export default Habit;

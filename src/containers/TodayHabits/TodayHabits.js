@@ -44,10 +44,10 @@ class TodayHabits extends Component{
 
         this.streakHandler();
       } else{
-        console.log("No data avaiable");
+        //console.log("No data avaiable");
       }
     }).catch(function(error){
-      console.log(error);
+      //console.log(error);
     });
   }
   
@@ -56,9 +56,9 @@ class TodayHabits extends Component{
     return firebase.database().ref(`/habits/${habitId}`).update(newData,
       (error) => {
         if (error){
-          console.log('Updating the habit on the server has failed');
+          //console.log('Updating the habit on the server has failed');
         } else{
-          console.log('The habit has been updated on the server successfully');
+          //console.log('The habit has been updated on the server successfully');
         }
       }
     );
@@ -106,13 +106,13 @@ class TodayHabits extends Component{
     const hoursSinceHabitCreation = (habitCreationDate, habitTitle) =>{
       let today = new Date();
       let todayBegining = today.setHours(0,0,0,0);
-      console.log(`==${habitTitle}==`);
-      console.log("Today's beginning: " + todayBegining);
-      console.log("Habit creation: " + habitCreationDate);
+      //console.log(`==${habitTitle}==`);
+      //console.log("Today's beginning: " + todayBegining);
+      //console.log("Habit creation: " + habitCreationDate);
       let difference = ((todayBegining - habitCreationDate));
-      console.log("Today's begining - habit creation: " + difference);
+      //console.log("Today's begining - habit creation: " + difference);
       let habitCreationInHoursBeforeTodayBeginning = parseFloat((difference / 3600000).toFixed(2));
-      console.log(`Hours the habit was created before today's beginning:  ${habitCreationInHoursBeforeTodayBeginning}`);
+      //console.log(`Hours the habit was created before today's beginning:  ${habitCreationInHoursBeforeTodayBeginning}`);
 
       return habitCreationInHoursBeforeTodayBeginning;
     }
@@ -125,8 +125,8 @@ class TodayHabits extends Component{
     });
 
     let habitsWithExpiredStreak = updatedTodayHabits.filter(habit=>{
-      console.log(`Hours since creation of "${habit.title}": ${hoursSinceHabitCreation(habit.creationDate)}`);
-      console.log("-------------------------");
+      //console.log(`Hours since creation of "${habit.title}": ${hoursSinceHabitCreation(habit.creationDate)}`);
+      //console.log("-------------------------");
       return hoursSinceHabitCreation(habit.creationDate, habit.title) > habit.streak * 24; //24 hrs = 1 day
     });
 
