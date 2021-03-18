@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {v4 as uuidv4} from 'uuid';
 
 //Component
@@ -48,6 +49,10 @@ class HabitTemplate extends Component {
       }
     },
     formIsValid: false,
+  }
+
+  static propTypes = {
+    addHabit: PropTypes.func.isRequired
   }
 
   createNewHabit =()=>{

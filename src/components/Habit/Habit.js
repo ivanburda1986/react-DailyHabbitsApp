@@ -33,7 +33,7 @@ class Habit extends Component{
     }
     
   }
-
+  
   render(){
     if(this.props.completed){
       const habitClasses = [...this.state.habitClasses];
