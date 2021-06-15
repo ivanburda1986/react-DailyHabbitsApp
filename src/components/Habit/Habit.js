@@ -1,70 +1,58 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 //Styles
-import classes from './Habit.module.css';
+import classes from "./Habit.module.css";
 
 //Icons
-import deletionIcon from '../../media/icons/delete.svg';
+import deletionIcon from "../../media/icons/delete.svg";
 
+const Habit = (props) => {
+  const [habitClasses, sethabitClasses] = React.useState([classes.Habit]);
 
-class Habit extends Component{
-  state = {
-    habitClasses: [classes.Habit]
-  }
-
-  static propTypes = {
+  const propTypes = {
     age: PropTypes.number.isRequired,
     clicked: PropTypes.func.isRequired,
     habitId: PropTypes.string.isRequired,
     icon: PropTypes.string.isRequired,
     subtitle: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-  }
+  };
 
   //Makes sure the creation animation is played only after the creation, not always when the page re-renders
-  componentDidMount(){
-    if(Date.now() - this.props.age < 1000){
-      setTimeout(()=>{
-        const habitClasses = [...this.state.habitClasses];
+  React.useEffect(() => {
+    if (Date.now() - props.age < 1000) {
+      setTimeout(() => {
+        const habitClasses = [...habitClasses];
         habitClasses.push(classes.Shine);
-        this.setState({habitClasses:habitClasses});
-    }, 1);
+        this.setState({ habitClasses: habitClasses });
+      }, 1);
     }
-    
-  }
-  
-  render(){
-    if(this.props.completed){
-      const habitClasses = [...this.state.habitClasses];
-      habitClasses.push(classes.Completed);
-      this.setState({habitClasses:habitClasses});
-    };
+  }, []);
 
-    return(
-      <div id={this.props.habitId} className={this.state.habitClasses.join(' ')} data-id={this.props.habitId}>
-        <div className={classes.HabitLeft}>
-          <img src={this.props.icon}/>
-        </div>
-        <div className={classes.HabitCenter}>
-          <p className={classes.Title}>{this.props.title}</p>
-          <p className={classes.Subtitle}>{this.props.subtitle}</p>
-        </div>
-        <div className={classes.HabitRight}>
-          <div className={classes.Streak}>
-            {this.props.streak}
-          </div>
-          <button 
-            className={classes.HabitDeletionBtn}
-            onClick={this.props.clicked}
-            >
-              <img src={deletionIcon}/>
-            </button>
-        </div>
+  if (props.completed) {
+    const habitClasses = [...habitClasses];
+    habitClasses.push(classes.Completed);
+    this.setState({ habitClasses: habitClasses });
+  }
+
+  return (
+    <div id={props.habitId} className={habitClasses.join(" ")} data-id={props.habitId}>
+      <div className={classes.HabitLeft}>
+        <img src={props.icon} />
       </div>
-      );
-  }
+      <div className={classes.HabitCenter}>
+        <p className={classes.Title}>{props.title}</p>
+        <p className={classes.Subtitle}>{props.subtitle}</p>
+      </div>
+      <div className={classes.HabitRight}>
+        <div className={classes.Streak}>{props.streak}</div>
+        <button className={classes.HabitDeletionBtn} onClick={props.clicked}>
+          <img src={deletionIcon} />
+        </button>
+      </div>
+    </div>
+  );
+};
 
-}
-
-  export default Habit;
+export default Habit;
